@@ -144,7 +144,7 @@ In the Jupyter Notebook, type:
 
 `text1.concordance("whale")`
 
-The output shows us the 25 characters on either side of the word, "whale" in Moby Dick. Let's try this with another word, maybe "love". Just replace the word, "whale" with love, and we get the contexts in which Melville uses "love" in Moby Dick. Concordance is used (behind the scenes) for several other functions (including "similar" and "common_contexts")
+The output shows us 25 instances of the 79 characters on either side of the word, "whale" in Moby Dick (this is the default in the concordance function - we won't change these parameters just now). Let's try this with another word, maybe "love". Just replace the word, "whale" with love, and we get the contexts in which Melville uses "love" in Moby Dick. Concordance is used (behind the scenes) for several other functions (including "similar" and "common_contexts")
 
 Let's now see which words appear in similar contexts as the word "love". NLTK has a built-in function for this as well, 'similar'.
 
@@ -162,11 +162,11 @@ Let's expand from novels for a minute and take a look at the Chat Corpus. In cha
 
 The resulting list is a lot of greetings, indicating that "lol" probably has more of a phatic function than a semantic one. 
 
-If you are really interested in this type of analysis, see the "common_contexts" function in the [NLTK book](https://www.nltk.org/book/) or in the [NLTK docs])https://www.nltk.org/).
+If you are really interested in this type of analysis, see the "common_contexts" function in the [NLTK book](https://www.nltk.org/book/) or in the [NLTK docs](https://www.nltk.org/).
 
 #### Positioning Words
 
-In many ways, concordance and similar are heightened word searches that tell us something about what is happening near the target words. Another metric we can use is to visualize where the words appear in the text. In the case of Moby Dick, we want to compare where "whale" and "monster" appear throughout the text. In this case, the text is functioning as a list of words, and will make a mark where each word appears, offset from the first word. We will *pass* this *function* a *list* of *strings* to plot. This will likely help us develop a visual of the story - where the whale goes from being a whale to being a monster to being a whale again. In the next cell, type:
+In many ways, the concordance and similar functions are heightened word searches that tell us something about what is happening near the target words. Another metric we can use is to visualize where the words appear in the text. In the case of Moby Dick, we want to compare where "whale" and "monster" appear. In this case, the text is functioning as a list of words, and will make a mark where each word appears, offset from the first word. We will *pass* this *function* a *list* of *strings* to plot. This will likely help us develop a visual of the story - where the whale goes from being a whale to being a monster to being a whale again. In the next cell, type:
 
 `text1.dispersion_plot(["whale", "monster"])`
 
@@ -174,7 +174,7 @@ A graph should appear with a tick mark everywhere that "whale" appears and every
 
 Try this with text2, *Sense and Sensibility* Some relevant words are "marriage", "love", "home", "mother", "husband", "sister", "wife". Pick a few to compare (you can compare an unlimited amount, but it's easier to read a few at a time). 
 
-NLTK has many more functions built-in, but some of the most powerful functions are related to cleaning, POS tagging, and other stages in the text analysis pipeline (aside from actually doing the analysis).
+NLTK has many more functions built-in, but some of the most powerful functions are related to cleaning, POS tagging, and other stages in the text analysis pipeline.
 
 ### Built-in Python Methods
 
@@ -182,7 +182,7 @@ We will now turn our attention away from the NLTK library and work with our text
 
 #### Types vs. Tokens
 
-First, let's find out how many times a given word appears in the corpus.  In this case (and all cases going forward), our text will be treated as a list of words. Therefore, we will use the 'count' function. We could just as easily do this with a text editor, but performing this in Python allows us to save it to a variable and then utilize this statistic in other calculations (for example, if we want to know what percentage of words in a corpus are 'lol', we would need a count of the 'lol's. In the next cell, type:
+First, let's find out how many times a given word appears in the corpus.  In this case (and all cases going forward), our text will be treated as a list of words. Therefore, we will use the 'count' function. We could just as easily do this with a text editor, but performing this in Python allows us to save it to a variable and then utilize this statistic in other calculations (for example, if we want to know what percentage of words in a corpus are 'lol', we would need a count of the 'lol's). In the next cell, type:
 
  `text1.count("whale")`
  
@@ -190,7 +190,7 @@ We see that "whale" occurs 906 times, that seems a little low. Let's check on "W
  
  `text1.count("Whale")`
  
-"Whale", with a capital "W" appears 282 times. This is a problem for us, we actually want them to be collapsed into one word - since "whale" and "Whale" really are the same for our purposes. We will deal with that in a moment. But, for the time being, we will accept that we have two entries for "whale". 
+"Whale", with a capital "W" appears 282 times. This is a problem for us, we actually want them to be collapsed into one word - since "whale" and "Whale" really are the same for our purposes. 
 
 This gets at a **type/token** distinction. "Whale" and "whale" are different types (as of now) because they do not match identically. Every instance of "whale" in the corpus is another **token** - it is an instance of the type, "whale." Therefore, there are 906 tokens of "whale" in our corpus. 
 
@@ -201,8 +201,7 @@ for t in text1:
 	if t.isalpha:
 		t.lower()
 		text1_tokens.append(t)
-	else:
-		pass```
+```
 
 ![code](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/tree/master/Images/code.png)
 	
@@ -212,7 +211,7 @@ Another way to type this (more efficiently) is:
 
 Great! Now text1_tokens is a list of all of the tokens in our corpus, with the punctuation removed, and all the words in lowercase
 
-Now we want to know how many words there are in our corpus (how many tokens total). Therefore, we want to ask, what is the length of that list of words. Python has a built-in 'len' function that allows you to find out the length of anything. Pass it a list (as we will), and it will tell you how many items are in the list. Pass it a string, and it will tell you how many characters in the string. Pass it a dictionary, it returns how many entries are in the dictionary, etc. In the next cell, type:
+Now we want to know how many words there are in our corpus (how many tokens total). Therefore, we want to ask, what is the length of our list of words. Python has a built-in 'len' function that allows you to find out the length of anything. Pass it a list, and it will tell you how many items are in the list. Pass it a string, and it will tell you how many characters in the string. Pass it a dictionary, it returns how many entries are in the dictionary, etc. In the next cell, type:
 
 `len(text1_tokens)`
 
@@ -247,7 +246,7 @@ If we wanted to perform the same set of steps with *Sense and Sensibility*
 2. make a slice of the first 10,000 words 
 3. calculate lexical density by dividing the length of the set of the slice by the length of the slice
 
-We could compare Melville's and Austen's range of vocabulary. 
+Using these steps could compare Melville's and Austen's range of vocabulary. 
 
 #### Clean the Corpus
 
@@ -256,7 +255,7 @@ Thus far, we have been asking questions that take stopwords and grammatical feat
 2. Remove stop words
 3. Lemmatize (or stem) our words.
 
-We already completed step 1, and are now working with our text1_tokens. Remember, this *variable* contains a *list* of *strings* that we will work with. We want to remove the stop words from that list. The NLTK library comes with fairly comprehensive lists of stop words for many languages. Stop words are function words that contribute very little semantic meaning, they most often have grammatical functions. Usually, these are function words such as determiners, prepositions, auxiliaries, and others. 
+We already completed step 1, and are now working with our text1_tokens. Remember, this *variable* contains a *list* of *strings* that we will work with. We want to remove the stop words from that list. Stop words are function words that contribute little semantic meaning and most often have grammatical functions. The NLTK library comes with fairly comprehensive lists of stop words for many languages.
 
 To use NLTK's stop words, we need to import the list of words from the corpus (we could have done this at the beginning of our program, and in more fully developed code, we would put it up there, but this works, too). In the next cell, type:
 
@@ -266,13 +265,11 @@ We need to specify the English list, and save it into its own variable that we c
 
 `stops = stopwords.words('english')`
 
-Now we want to go through all of the words in our text, and if that word is in the stop words list, remove it from our list. Otherwise, skip it. The code below is VERY slow (there's a faster option beneath it). The way we write this in Python is:
+Now we want to go through all of the words in our text, and if that word is in the stop words list, remove it from our list. Otherwise, skip it. The code below is VERY slow (there's a faster option beneath it). Remember we want to use the list of words that is already lowercase. The way we write this in Python is:
 
 ```for t in text1_tokens:
     if t in stops:
         text1_tokens.remove(t)
-    else:
-        pass
 ```
         
 Faster option: `text1_tokens = [t for t in text1_tokens if t not in stops]`
@@ -287,13 +284,13 @@ For reference, let's also check how many unique words there are.
 
 `len(set(text1_tokens))`
 
-The next step is to stem or lemmatize the remaining words. This means that we will strip off the grammatical structure from the words. For example, cats --> cat, and walked --> walk. If that was all we had to do, we could stem the corpus and achieve the correct result, because stemming (as the name implies) really just means cutting off affixes to find the root (or the stem). Very quickly, this gets very complicated, though as men --> man and sang --> sing. Lemmatization deals with this by looking up the word in a dictionary of sorts and finding the appropriate root (though still is not 100% accurate). Lemmatization therefore takes longer. NLTK comes with pre-built stemmers and lemmatizers.
+The next step is to stem or lemmatize the remaining words. This means that we will strip off the grammatical structure from the words. For example, cats --> cat, and walked --> walk. If that was all we had to do, we could stem the corpus and achieve the correct result, because stemming (as the name implies) really just means cutting off affixes to find the root (or the stem). This gets complicated quickly, though as men --> man and sang --> sing. Lemmatization deals with this by looking up the word in a dictionary of sorts and finding the appropriate root (though still is not 100% accurate). Lemmatization therefore takes longer. NLTK comes with pre-built stemmers and lemmatizers.
 
 We will use the WordNet Lemmatizer from the NLTK Stem library, so let's import that now: 
 
 `from nltk.stem import WordNetLemmatizer`
 
-Because of the way that it is written "under the hood", an instance of the lemmatizer needs to be called (we know this from reading [the docs](https://www.nltk.org/))
+Because of the way that it is written, an instance of the lemmatizer needs to be called (we know this from reading [the docs](https://www.nltk.org/))
 
 `wordnet_lemmatizer = WordNetLemmatizer()`
 
@@ -311,9 +308,9 @@ This set should be much smaller than the set before we lemmatized. Now if we wer
 
 Now let's have a look at the words Melville uses in Moby Dick. We'd like to look at all of the *types*, but not necessarily all of the *tokens.* We will order this set so that it is in an order we can handle. In the next cell, type:
 
-`sorted(set(text1_tokens))`
+`sorted(set(text1_clean))`
 
-A list of all the words in Moby Dick should appear. The list begins with 'a', which we might have expected to be removed in the stemming process, and some words we wouldn't have expected, such as "abbreviate" and "abbreviation". As we mentioned before, lemmatizing looks up the dictionary form of the word, and these would be different entries. A better example is with 'meaning' and 'meanness.' A lemmatizer would retain these two as separate words. A stemmer would not. We will stick with the output of the Lemmatizer, but just for illustration, we can try it out with a instead (Porter is the most common).  The code to implement this and view the output is below:
+A list of all the words in Moby Dick should appear. We will stick with the output of the Lemmatizer, but just for illustration, we can try it out with a instead (Porter is the most common).  The code to implement this and view the output is below:
 
 ```
 from nltk.stem import PorterStemmer
@@ -323,17 +320,18 @@ print(len(set(t1_porter)))
 print(sorted(set(t1_porter)))
 
 ```
-A very different list of words is produced. This list is shorter than the list produced by the lemmatizer, but is also more accurate because it avoids collapsing synonyms. You might also notice that some of the words are transformed. Stemmers each have their own rules, the Porter stemmer takes a word like "berry" and "berries" and makes them both "berri" whereas a lemmatizer would return it as "berry". Stemmers are faster than lemmatizers, so when speed matters more than accuracy, go with a stemmer. When accuracy matters more, go with a lemmatizer. In an academic research setting, the choice is clear. We will proceed with our lemmatized corpus.
+
+Stemmers each have their own rules, the Porter stemmer takes a word like "berry" and "berries" and makes them both "berri" whereas a lemmatizer would return them as "berry". Stemmers are faster than lemmatizers, so when speed matters more than accuracy, go with a stemmer. When accuracy matters more, go with a lemmatizer. In an academic research setting, the choice is clear. We will proceed with our lemmatized corpus.
 
 Now let's visualize the word frequency. First create a frequency distribution. This is a special type of NLTK object that is kind of like a dictionary, where the words are the keys, and the counts are the values. (The NLTK-Text-ness of our text1 is still retained with text1_clean)
  
  `my_dist=FreqDist(text1_clean)`
 
-If nothing happened, that is normal, check to make sure it is there by calling for the type of the "my_dist" object.
+If nothing happened, that is good, check to make sure it is there by calling for the type of the "my_dist" object.
 
 `type(my_dist)`
 
-It should say it is an nltk probability distribution. It doesn't matter too much right now what it is, only that it worked. We can now plot this with the matplotlib function, "plot". We want to plot the first 50 entries of the my_dist object, but we don't want it to be cumulative (if we were working with financial data, we might want cumulative).
+It should say it is an nltk probability distribution. It doesn't matter what that means, only that it exists. We can now plot this with the matplotlib function, "plot". We want to plot the first 50 entries of the my_dist object, but we don't want it to be cumulative (if we were working with financial data, we might want cumulative).
 
 `my_dist.plot(50,cumulative=False)`
 
@@ -363,7 +361,7 @@ You can obviously do this with much larger lists and compare entire novels if yo
 
 ### Make Your Own Corpus
 
-Now that we have seen and implemented a series of text analysis techniques, let's go to the Internet to find a new text. You could just as easily use a txt file that is on your computer (say you have a txt copy of the [Hunger Games LINK TO GIT](LINK), for example. Or historic newspapers, or Supreme Court proceedings, etc. Here, we will use [Project Gutenberg](http://www.gutenberg.org). Project Gutenberg is an archive of public domain written works, available in a wide variety of formats, including .txt. You can download these to your computer or access them via the url. We'll use the url method. We found Don Quixote in the archive, and will work with that.
+Now that we have seen and implemented a series of text analysis techniques, let's go to the Internet to find a new text. You could just as easily use a txt file that is on your computer (say you have a txt copy of the [Hunger Games](https://archive.org/stream/thehungergames_201606/Book%201%20-%20The%20Hunger%20Games_djvu.txt), for example. Or historic newspapers, or Supreme Court proceedings, etc. Here, we will use [Project Gutenberg](http://www.gutenberg.org). Project Gutenberg is an archive of public domain written works, available in a wide variety of formats, including .txt. You can download these to your computer or access them via the url. We'll use the url method. We found Don Quixote in the archive, and will work with that.
 
 The Python package, urllib comes installed with Python, but is inactive by default, so we still need to import it to utilize the functions. Since we are only going to use the urlopen function, we will just import that one.
 
@@ -373,13 +371,13 @@ In the next cell, type:
 
 The urlopen function allows your program to interact with files on the internet by opening them. It does not read them, however - they are just available to be read in the next line. This is the default behavior any time a file is opened and read by Python. One reason is that you might want to read a file in different ways. For example, if you have a **really** big file (think big data), you might want to read line-by-line rather than the whole thing at once. 
 
-Now let's specify which url we are going to use. Though you might be able to find Don Quixote in the Project Gutenberg files, please type this in so that we are all using the same format (there are multiple .txt files on the site, one with utf-8 encoding, another with ascii encoding). We want the utf-8 encoded one. The difference between these is beyond the scope of this tutorial, check out this [introduction to character encoding](https://www.w3.org/International/questions/qa-what-is-encoding) from The World Wide Web Consortium (W3C). 
+Now let's specify which url we are going to use. Though you might be able to find Don Quixote in the Project Gutenberg files, please type this in (there are multiple .txt files on the site, one with utf-8 encoding, another with ascii encoding). We want the utf-8 encoded one. The difference between these is beyond the scope of this tutorial, check out this [introduction to character encoding](https://www.w3.org/International/questions/qa-what-is-encoding) from The World Wide Web Consortium (W3C). 
 
 Set the url we want to a variable:
 
 `my_url = "http://www.gutenberg.org/cache/epub/996/pg996.txt"`
 
-We still need to open the file and read the file. You will have to do this with files stored locally as well. (in which case, you would type the path to the file (i.e., "data/texts/mytext.txt") in place of `my_url`)
+We still need to open the file and read the file. If you are using a local file, you will start with this step, replacing "my_url" with the location of the file on your computer.  (i.e., "data/texts/mytext.txt") in place of `my_url`)
 
 
 `file = urlopen(my_url)`
@@ -394,7 +392,7 @@ Now let's check on what kind of object we have in the "don" variable. Type:
 
 `type(don)`
 
-This should be a string. Great! We have just read in our first file and now we are going to transform that string into a text that we can perform NLTK functions on. Since we already imported nltk at the beginning of our program, we don't need to import it again, we can just use its functions by specifying 'nltk' before the function. The first step is to tokenize the words, transforming the giant string into a list of words. A simple way to do this would be to break on spaces, and that would probably be fine, but we are going to use the NLTK tokenizer to ensure that edge cases are captured (i.e., "don't" is made into 2 words: do and n't). In the next cell, type:
+This should be a string. Great! We have just read in our first file and now we are going to transform that string into a text that we can perform NLTK functions on. Since we already imported nltk at the beginning of our program, we don't need to import it again, we can just use its functions by specifying 'nltk' before the function. The first step is to tokenize the words, transforming the giant string into a list of words. A simple way to do this would be to break on spaces, and that would probably be fine, but we are going to use the NLTK tokenizer to ensure that exceptions are captured (i.e., "don't" is made into 2 words: do and n't). In the next cell, type:
 
 `don_tokens = nltk.word_tokenize(don)`
 
@@ -406,7 +404,7 @@ Since this is a list, we can look at any slice of it that we want. Let's inspect
 
 `don_tokens[:10]`
 
-That looks like metadata - not what we want to analyze. We will strip this off before proceeding. If you were doing this to many texts, you would want to use Regular Expressions. Regular Expressions are an extremely powerful way to match text in a document. However, we are just using this text, so we could either guess, or cut and paste the text into a text reader and identify the position of the first content (i.e., how many words in is the first word). That is the route we are going to take. We found that the first word of the story begins at word 120, so let's make a slice of the text from word position 120 to the end. 
+That looks like metadata - not what we want to analyze. We will strip this off before proceeding. If you were doing this to many texts, you would want to use Regular Expressions. [Regular Expressions](https://en.wikipedia.org/wiki/Regular_expression) are an extremely powerful way to match text in a document. However, we are just using this text, so we could either guess, or cut and paste the text into a text reader and identify the position of the first content (i.e., how many words in is the first word). That is the route we are going to take. We found that the first word of the story begins at word 120, so let's make a slice of the text from word position 120 to the end. 
 
 `dq_text = don_tokens[120:]`
 
@@ -459,7 +457,7 @@ Therefore, part of speech is as much related to the word itself as its relations
 
 * Wanda was entertaining last night
 
-Part of Speech tagging can be done very simply: with a very small Tag Set, or in a very complex way: with a much more elaborate tag set. We are going to implement a compromise, and use a neither small nor large tag set, the [Penn Tree Bank POS Tag Set](https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html).
+Part of Speech tagging can be done very simply: with a very small Tag Set, or in a very complex way: with a much more elaborate tag set. We are going to use the [Penn Tree Bank POS Tag Set](https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html).
 
 This is the tag set that is pre-loaded into NLTK. When we call the tagger, we expect it to return an object with the word and the tag associated. Because POS tagging is dependent upon the stop words, we have to use a text that includes the stop words. Therefore, we will go back to using the **dq_text** object for this section. Let's try it out. Type:
 
@@ -488,13 +486,13 @@ This would be better with some order to it, so let's organize our dictionary to 
 ```from collections import OrderedDict
 tag_dict = OrderedDict(sorted(tag_dict.items(), key=lambda t: t[1], reverse=True))```
 
-Now check out what we have. It looks like NN is the most common tag, we can look up what that is back at the [Penn Tree Bank](https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html). Looks like that is a Noun, singular or mass. Great! This information will likely help us with genre classification (as you will do in the Machine Learning tutorial), or identifying the author of a text, or a variety of other functions. 
+Now check out what we have. It looks like NN is the most common tag, we can look up what that is back at the [Penn Tree Bank](https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html). Looks like that is a Noun, singular or mass. Great! This information can help us with genre classification, or identifying the author of a text, or a variety of other functions.
 
 ### Conclusion
 
-At this point, you should have a familiarity with what is possible with text analysis, and some of the most important functions (i.e., cleaning and part-of-speech tagging). Yet, this tutorial has only scratched the surface of what is possible with text analysis and natural language processing. It is a rapidly growing field, if you are interested, be sure to work through the NLTK Book as well as peruse the resources in the Zotero Library. 
+At this point, you should have a familiarity with what is possible with text analysis, and some of the most important functions (i.e., cleaning and part-of-speech tagging). Yet, this tutorial has only scratched the surface of what is possible with text analysis and natural language processing. It is a rapidly growing field, if you are interested, be sure to work through the NLTK Book. 
 
 
 ______________________________________________________________________________________________________________
 
-Tutorial written by [Michelle McSweeney](www.michelleamcsweeney.com), for *Digital Humanities Research Institute*, an intensive 10 day workshop on Digital Humanities methods and applications at the Graduate Center at CUNY June 11-20. More information about the institue is available [here](http://dhinstitutes.org/).
+Tutorial written by [Michelle McSweeney](www.michelleamcsweeney.com) for the the [Center for Spatial Research](http://c4sr.columbia.edu) at Columbia University.
