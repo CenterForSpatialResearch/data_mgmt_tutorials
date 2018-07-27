@@ -16,7 +16,6 @@
 	* Input/Output
 * Part-of-Speech Tagging
 
-*Before we get started, please clone or download the [GitHub Repository](https://github.com/michellejm/NLTK_DHRI/) for this tutorial*
 ### Overview
 
 This tutorial will give a brief overview of the considerations and tools involved in basic text analysis with Python. By completing this tutorial, you will have a general sense of how to turn text into data using the Python package, NLTK. You will also be able to take publicly available text files and transform them into a corpus that you can perform your own analysis on. Finally, you will have some insight into the types of questions that can be addressed with text analysis. 
@@ -27,15 +26,15 @@ If you have not already installed the [Anaconda](https://www.anaconda.com/downlo
 
 Find Anaconda on your computer, Launch a Jupyter Notebook. 
 
-![jupyter](https://github.com/michellejm/NLTK_DHRI/blob/master/Images/jupyter.png)
+![jupyter](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/tree/master/Images/jupyter.png)
 
 It will open in the browser. All of the directories (folders) in your home directory will appear - we'll get to that later. For now, select 'New' >> Python3 in the upper right corner.
 
-![jupyter](https://github.com/michellejm/NLTK_DHRI/blob/master/Images/jupyter1.png)
+![jupyter](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/tree/master/Images/jupyter1.png)
 
 A blank page with an empty box should appear.
 
-![jupyter](https://github.com/michellejm/NLTK_DHRI/blob/master/Images/jupyter2.png)
+![jupyter](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/tree/master/Images/jupyter2.png)
 
 
 In the box, type:
@@ -46,53 +45,55 @@ In the box, type:
 
 Press **Shift** + **Enter** to run the cell (or click run at the top of the page). Don't worry too much about what this is doing - that will be explained later in this tutorial. For now, we just want to make sure the packages we will need are installed.
 
-![jupyter](https://github.com/michellejm/NLTK_DHRI/blob/master/Images/jupyter3.png)
+![jupyter](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/tree/master/Images/jupyter3.png)
 
-If nothing happens, they are installed and you are ready to move on! If you get an error message, either you have a typo or they are not installed. If it is the later, open the command line and type:
+If nothing happens, they are installed and you are ready to move on! If you get an error message, either you have a typo or they are not installed. If it is the later, open the command line or Terminal or BASH and type:
 
 `pip install nltk`
 
 `pip install matplotlib`
 
 
-Now we need to install the nltk corpus. This is very large and may take some time if you are on a weak connection. 
+Now we need to install the [nltk corpus](http://www.nltk.org/) and associated functions. This is very large and may take some time if you are on a weak internet connection. 
 
 In the next cell, type:
 
 `nltk.download()` and run the cell.
 
-The NLTK downloader should appear. Please install all of the packages. If you are short on time, focus on 'book' for this tutorial, and come back to this step. 
+The NLTK downloader should appear in a pop up window. Please install all of the packages. If you are short on time, focus on 'book' for this tutorial, and come back to this step. 
 
 Yours will look a little different, but the same interface. Click on the 'all' option and then 'Download'. Once they all trun green, you can close the Downloader dialogue box.
 
-![nltk downloader](https://github.com/michellejm/NLTK_DHRI/blob/master/Images/nltk.png)
+![nltk downloader](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/tree/master/Images/nltk.png)
 
 Return to your Jupyter Notebook and type:
 
 `from nltk.book import *`
 
-A list of books should appear. If this happens great! If not, return to the downloader to make sure everything is ok.
+A list of books should appear. If this happens great! If not, return to the downloader pop up window to make sure everything is ok.
 
 Close this Notebook without saving - the only purpose was to check if we have the appropriate packages installed.
 
 
-### Text As Data
+###  As Data
 
-When we think of 'data', we often think of numbers, things that can be summarized, statisticized, and graphed. Rarely when I ask people "what is data?" do they respond "Moby Dick!" And yet, more and more, text is data. Whether it is Moby Dick, or every romance novel written since 1750, or today's newspaper or twitter feed, we are able to transform written (and spoken) language into data that can be quantified and visualized. 
+When we think of 'data', we often think of numbers, things that can be summarized, statisticized, and graphed. Rarely when I ask people "what is data?" do they respond "Moby Dick!" And yet, more and more, text is data. Whether it is Moby Dick, or every romance novel written since 1750, or today's newspaper or Twitter feed, we are able to transform written (and spoken) language into data that can be quantified and visualized. 
 
 #### Corpora
 
 The first step in gathering insights from texts is to create a corpus. A corpus is a collection of texts that are somehow related to each other. For example, the [Corpus of Contemporary American English](https://corpus.byu.edu/coca/), [Donald Trump's Tweets](http://www.trumptwitterarchive.com/), [text messages](www.byts.commons.gc.cuny.edu) sent by bilingual young adults, [digitized newspapers](https://chroniclingamerica.loc.gov/newspapers/), or [books](https://www.gutenberg.org/) in the public domain are all corpora. There are infinitely many corpora, and sometimes, you will want to make your own that best fits your research question. 
 
-The route you take from here will depend on your research question. Let's say, for example, that you want to examine gender differences in writing style. Based on previous linguistic research, you suspect that male authors use more definitives than female ones. So you collect two corpora: one written by males, one written by females, and you count the number of *the*s, *this*s, and *that*s compared to the number of *a*s, *an*s, and *one*s. Maybe you find a difference, maybe you don't. We can already see that this is a relatively crude way of going about answering this question, but it is a start (more likely you'd use a *supervised classification task*, which you will learn about in the Machine Learning Tutorial). 
+The route you take from here will depend on your research question. Let's say, for example, that you want to examine gender differences in writing style. Based on previous linguistic research, you suspect that male-identified authors use more definitives than female-identified ones. So you collect two corpora: one written by males, one written by females, and you count the number of *the*s, *this*s, and *that*s compared to the number of *a*s, *an*s, and *one*s. Maybe you find a difference, maybe you don't. We can already see that this is a relatively crude way of going about answering this question, but it is a start. 
 
-There has been some research about how the [linguistic complexity of written language](http://science.sciencemag.org/content/sci/331/6014/176.full.pdf) has decreased, and we want to know if short-form platforms are emblematic of the problem. One way to do this would be to use Part-of-Speech tagging. Part-of-Speech tagging identifies the category of words. NLTK uses the [Penn Tree Bank Tag Set](https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html). This is a very detailed tag list that goes far beyond just nouns, verbs, and adjectives, but gives insight into different types of nouns, prepositions, and verbs as well. Virtually all POS taggers will create a list of (word, POS) pairs. If newspaper articles have a higher ratio of function words (prepositions, auxiliaries, determiners, etc.) to semantic words (nouns, verbs, adjectives), than tweets, then your hypothesis is confirmed. It's important to note here that either ratios or otherwise normalized data should be considered. Because of the way that language works (function words are often repeated, etc.), a sample of 100 words will have more unique words than a sample of 1,000. Therefore, to compare different data types (articles vs. tweets), this fact should be taken into account. If we are only comparing function words 
+There has been some research about how the [linguistic complexity of written language](http://science.sciencemag.org/content/sci/331/6014/176.full.pdf) has decreased over time, and we want to know if short-form platforms are emblematic of this trend. One way to do this would be to use Part-of-Speech tagging to compare verbs, nouns and prepositions across different media sources (the more prepositions a sentence has, the more embedded clauses and complex verb constructions it has). 
+
+Part-of-Speech tagging identifies the category a word belongs to (i.e., Nouns, Verbs, Adjectives, Prepositions, etc.). NLTK uses the [Penn Tree Bank Tag Set](https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html). This is a very detailed tag list and differentiates between types of each feature (i.e., there are 4 types of nouns: singular or mass, plural, proper singular, and proper plural). Virtually all POS taggers create a list of (word, POS) pairs. If newspaper articles have a higher ratio of function words (prepositions, auxiliaries, determiners, etc.) to semantic words (nouns, verbs, adjectives), than tweets, then our hypothesis will be confirmed. It's important to note here that either ratios or otherwise normalized data should be considered. Because of the way that language works (function words are often repeated, etc.), a sample of 100 words will have more unique words than a sample of 1,000. This takes a bit of creativity when working with tweets because they are inherently so short. One strategy is to add a bunch of tweets together to get to 1000 words and then take a 1000 word sample from the newspaper. Another is to sample randomly 140 characters at a time from the newspaper. 
 
 #### Data Cleaning 
 
-Generally, however, our questions are more about topics rather than writing style. So, once we have a corpus (whether that is one text or millions), we usually want to clean and normalize it. Language is messy, and created for and by people, not computers. There is a lot of grammatical information in a sentence that a computer cannot use. For example, I could say to you `The house is burning.` and you would understand me. You would also understand if I say `house burn`. The first has more information about tense, and which house in particular, but the sentiment is the same either way. 
+Generally, however, our questions are more about topics rather than writing style. So, once we have a corpus (whether that is one text or millions), we usually want to clean and normalize it. Language is messy, and created for and by people, not computers. There is a lot of grammatical information in a sentence that a computer cannot use. For example, I could say to you `The house is burning.` and you would understand me. You would also understand if I say `house burn`. The first has more information about tense, and which house in particular, but the topic is the same either way. 
 
-Usually, the computer works better with the second version (depending, of course, on your research question). In going from the first to the second, we removed the stop words (*the* and *is*), and normalized (removed punctuation and case) and lemmatized what was left (*burning* becomes *burn* - though we might have stemmed this, its impossible to tell from the example). This results in what is essentially a "bag of words", or a corpus of words without any structure. Again, this will be covered more in depth in the Machine Learning Tutorial, but for the time being, we just need to know that there is "clean" and "dirty" data. Sometimes our questions are about the clean data, but sometimes our questions are in the "dirt."
+Usually, the computer works better with the second version (depending, of course, on your research question). In going from the first to the second, we removed the stop words (*the* and *is*), and normalized (removed punctuation and case) and lemmatized what was left (*burning* becomes *burn*). This results in what is essentially a "bag of words", or a corpus of words without any structure.  
 
 #### Words into Numbers
 
@@ -100,7 +101,7 @@ In the next section, we are going to go through a series of methods that come bu
 
 ### NLTK Methods with the NLTK Corpus
 
-*All of the code for this section is in a Jupyter Notebook in the GitHub Repository. I encourage you to follow along by retyping all of the code, but if you get lost, or want another reference, the code is there as well. To open it in a Jupyter Notebook, Launch the Notebook and then through the file list that appears in your browser, navigate to where you saved the file.*
+*All of the code for this section is in a Jupyter Notebook in the GitHub Repository. I encourage you to follow along by retyping all of the code, but if you want another reference, the code is there as well. To open it in a Jupyter Notebook, Launch the Notebook and then through the file list that appears in your browser, navigate to where you saved the file.*
 
 Return to the Jupyter Home Tab in your Browser (or Launch the Jupyter Notebook again), and start a New Python3 Notebook using the 'New' button in the upper right corner. 
 
@@ -121,7 +122,7 @@ Finally, because of a quirk of Jupyter notebooks, we need to specify that matplo
 
 All three of these commands can be written in the same cell and run all at once (**Shift** + **Enter**) or in different cells. 
 
-![imports](https://github.com/michellejm/NLTK_DHRI/blob/master/Images/imports.png)
+![imports](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/tree/master/Images/imports.png)
 
 If nothing happens, it's all correct. 
 
@@ -131,19 +132,19 @@ Next we need to load all of the nltk corpora into our program. Even though we do
 
 The pre-loaded NLTK texts should appear again. These are pre-formatted datasets. We will still have to do some minor processing, but having the data in this format saves us a few steps. At the end of this tutorial, we will make our own corpus. This is a special type of python object specific to NLTK (it isn't a string, list, or dictionary per se). Sometimes it will behave like a string, and sometimes like a list of words. How it is behaving is noted for each function below.
 
-![imports](https://github.com/michellejm/NLTK_DHRI/blob/master/Images/nltkbook.png)
+![imports](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/tree/master/Images/nltkbook.png)
 
 Let's start by analyzing Moby Dick, which is text1 for NLTK. 
 
 #### Searching for words
 
-The first function we will look at is concordance. Concordance in this context means the characters on either side of the word. Our text is behaving like a string. As discussed in the [Python tutorial LINK](), Python does not *evaluate* strings, so it just counts the number of characters on either side. By default, this is 25 characters on either side of our target word (including spaces). 
+The first function we will look at is concordance. Concordance in this context means the characters on either side of the word. Our text is behaving like a string. Python does not *evaluate* strings, so it just counts the number of characters on either side. By default, this is 25 characters on either side of our target word (including spaces). 
 
 In the Jupyter Notebook, type:
 
 `text1.concordance("whale")`
 
-The output shows us the 25 characters on either side of the word, "whale" in Mody Dick. Let's try this with another word, maybe "love". Just replace the word, "whale" with love, and we get the contexts in which Melville uses "love" in Moby Dick. Concordance is used (behind the scenes) for several other functions (including "similar" and "common_contexts")
+The output shows us the 25 characters on either side of the word, "whale" in Moby Dick. Let's try this with another word, maybe "love". Just replace the word, "whale" with love, and we get the contexts in which Melville uses "love" in Moby Dick. Concordance is used (behind the scenes) for several other functions (including "similar" and "common_contexts")
 
 Let's now see which words appear in similar contexts as the word "love". NLTK has a built-in function for this as well, 'similar'.
 
@@ -203,7 +204,7 @@ for t in text1:
 	else:
 		pass```
 
-![code](https://github.com/michellejm/NLTK_DHRI/blob/master/Images/code.png)
+![code](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/tree/master/Images/code.png)
 	
 Another way to type this (more efficiently) is:
 
