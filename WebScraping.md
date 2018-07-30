@@ -118,7 +118,7 @@ There seems to be raw numbers and percentages presented. I want the raw numbers,
     2. If it didn't work, debug
 
 ### Inspecting the Pages
-For this, Google Chrome is the best interface (I am a Firefox user, you can do this with FF, too, but I will use Chrome because it's easier to look at).
+
 **Step 1 Make sure the subsites data is visible in the HTML**
 Go to the webpage you want to scrape. Right-click and select 'Inspect Element' 
 
@@ -145,28 +145,29 @@ By right clicking on the title, I see that the name of this sub area is in the c
 We now understand how our data is organized on our site.
 
 **Step 2. Make sure the links can be collected on the JHB page and the main pages**
-Now go back to the [JHB site](https://census2011.adrianfrith.com/place/798) Scroll to the list of mainplaces. STart clicking on them and see if there is a pattern to the numbers - if jsut the last 2 digits change (a common strategy), then we can just check pages incrementally. Unfortunately, there is not a pattern here, so we will have to figure something else out. 
+Now go back to the [JHB site](https://census2011.adrianfrith.com/place/798) Scroll to the list of mainplaces. Start clicking on them and see if there is a pattern to the numbers - if just the last 2 digits change (a common strategy), then we can just check pages incrementally. Unfortunately, there is not a pattern here, so we will have to figure something else out. 
 
 Inspect the main place to see how the links are formated:
 
 ![blank](https://github.com/michellejm/ConflictUrbanism-InfraPolitics/blob/master/img/ws4.png)
 
-We see it is in the `<td class="namecell">` in an `<a href   >` the href points us to the address extension, /place/798014 if we paste that into the browser after the xxx.COM, we see that it takes us to the page we want. Perfect! We found the addresses. 
+We see it is in the `<td class="namecell">` in an `<a href   >` the href points us to the address extension, /place/798014 if we paste that into the browser after the https://census2011.adrianfrith.com/, we see that it takes us to the page we want. Perfect! We found the addresses. 
     
 Let's double check that it's the same on the main page site by inspecting the element, and it is!
 
 ![blank](https://github.com/michellejm/ConflictUrbanism-InfraPolitics/blob/master/img/ws5.png)
 
 **Step 3. Make a list of all the features we will look for**
+There are Gender, Population, and Language tables on each page. 
 
-First, what are we going to do about 'Other'? There are two options, we could download each type of data 3 times, but there are a lot of sites to search, so doing that 3 times is not ideal. I would rather be able to do it all at once. It turns out that 'Other' for both categories is only about 1% of the data. If I'm OK with losing 1% of the data (and making a note to myself that I did that), then I will just omit the 'Other' values before adding them to my dictionary. 
+Gender has 2 features: ['Male', 'Female']
 
-Now we need to get the column names/categories. We could do this programatically, but we only have to do it once, so copy/paste will work just as well. I copied all the headers, put it into Excel, took out what I didn't want, and saved it as a csv in order to get a list of the categories. This is not the kind of list that Python can read, though. To make it readable, I opened the file with Sublime, put quotes around each word, separated each word by a comma, and saved it. 
+Population has up to 5: ['Black African', 'Coloured', 'Indian or Asian', 'White', 'Other']
 
-The final list looks like this:
-'Male', 'Female', 'Black African', 'Coloured', 'Indian or Asian', 'White', 'Sepedi', 'isiZulu', 'Xitsonga', 'Setswana', 'Sesotho', 'isiXhosa', 'Tshivenda', 'English', 'isiNdebele', 'Sign language', 'Afrikaans', 'SiSwati'
+Language has up to 12: ['Sepedi', 'isiZulu', 'Xitsonga', 'Setswana', 'Sesotho', 'isiXhosa', 'Tshivenda', 'English', 'isiNdebele', 'Sign language', 'Afrikaans', 'SiSwati', 'Not Applicable', 'Other']
 
-The order of this list does not matter because Python will match the strings rather than the index (location).
+
+The order of this list does not matter because Python will match the strings rather than the index (position in the list).
 
 **Open Python**
 
@@ -183,15 +184,16 @@ A cell-by-cell interpreter will open.
 
 ![blank](https://github.com/michellejm/ConflictUrbanism-InfraPolitics/blob/master/img/ws8.png)
 
-At this stage, I like to save my notebook - I can save it anywhere, it won't be reading any other files for now. It WILL be creating a file, so save it where ever you want your data to be saved. Word to the wise: Don't use Dropbox, and don't save it somewhere that iCloud will be involved. You will be taking over your internet connection with this program, it's better to leave as much bandwith available as you can.
+At this stage, I like to save my notebook - I can save it anywhere, it won't be reading any other files for now. It WILL be creating a file, so save it where ever you want your data to be saved. Word to the wise: Don't don't save it somewhere that iCloud will be involved, and avoid Dropbox if you can.
 
 In the first cell, call all of the programs we will need
 Type:
 
-import requests, bs4
+```import requests
+from bs4 import BeautifulSoup
 import pandas as pd
-import numpy as np
 from collections import defaultdict
+```
 
 **Click `Shift` + `Return` to run the cell.** 
 
@@ -205,25 +207,42 @@ We just imported:
 requests : a library for reading webpages
 bs4 : a library for reading HTML
 pandas : a library for data analysis - you need this to make dataframes
-numpy : a library for data analysis - turns out we won't use this, but I usually bring it in with pandas
 from the collections library, we imported defaultdict so we would be able to set the behavior of our dictionary (we need to use a special kind of dictionary)
 
-In `NEXT CELL`, enter the list of categories we made earlier, and make a bunch of empty lists that we will fill.
+In `NEXT CELL`, define the url to start from and set up the lists of categories we made earlier, and make a bunch of empty lists that we will fill.
 
-category=['Male', 'Female', 'Black African', 'Coloured', 'Indian or Asian', 'White', 'Sepedi', 'isiZulu', 'Xitsonga', 'Setswana', 'Sesotho', 'isiXhosa', 'Tshivenda', 'English', 'isiNdebele', 'Sign language', 'Afrikaans', 'SiSwati']
+```
+url = 'https://census2011.adrianfrith.com'
+
+genders=['Male', 'Female']
+races=['Black African', 'Coloured', 'Indian or Asian', 'White', 'Other']
+languages=['Sepedi', 'isiZulu', 'Xitsonga', 'Setswana', 'Sesotho', 'isiXhosa', 'Tshivenda', 'English', 'isiNdebele', 'Sign language', 'Afrikaans', 'SiSwati', 'Not Applicable', 'Other']
 
 sites=[]
 sitelist=[]
 subsitelist=[]
+```
 
 **Step 5. Make a new dataframe that will hold all the data**
 
-We will call it df (because we are lazy). The only thing special about this dataframe is that we want to specify the column names
+For now, we will actually make 3 dataframes that each have a locationID. We will use this locID to match them up later. 
 
 In `NEXT CELL`, type
 
-df=pd.DataFrame(columns=category)
+```locID = []
 
+gender_name = []
+gender_num = []
+gender_df = pd.DataFrame(['locID', 'gender', 'count'])
+
+race_name = []
+race_num = []
+race_df = pd.DataFrame(['locID', 'race', 'count'])
+
+lang_name = []
+lang_num = []
+lang_df = pd.DataFrame(['locID', 'language', 'count'])
+````
 
 **Step 6. Make a list of the links from the JHB site to each main place site**
 
@@ -232,11 +251,16 @@ First visit the page and get the text, and then pass it to beautiful soup to mak
 In `NEXT CELL`, type
 
 page = requests.get("https://census2011.adrianfrith.com/place/798")
-apage = bs4.BeautifulSoup(page.text)
+apage = BeautifulSoup(page.text, 'lxml')
 
 You will get a warning about the default language, and how to specify a language so your program can be used across multiple environments. This will not affect anything, so just ignore it. 
 
 ![blank](https://github.com/michellejm/ConflictUrbanism-InfraPolitics/blob/master/img/ws10.png)
+
+If you hate the warning, use this code instead to specify the markup:
+
+apage = BeautifulSoup(page.text, 'lxml')
+
 
 It would be great if we could just get all of the links on the page, but as it turns out, there are other links that we do NOT want to get. All of the links we do want are contained in tr tags.
 
@@ -268,35 +292,34 @@ In `NEXT CELL`, type
 
 `for site in sitelist:
     bpage = requests.get(url+site)
-    cpage = bs4.BeautifulSoup(bpage.text)
+    cpage = BeautifulSoup(bpage.text, 'lxml')
     for tr in cpage.find_all('tr'):
         aref = tr.find_all('a')
         for a in aref:
             subsitelist.append(a.get('href'))`
             
-Run that, and it will probably take a very long time to compile. If it's still compiling, and you are bored, kill it by clicking the 'Stop' button. You will get an error message informing you that you killed your program. 
+This will probably take a very long time to compile.
 
 ![blank](https://github.com/michellejm/ConflictUrbanism-InfraPolitics/blob/master/img/ws12.png)
 
-We don't need our program to go through the entire site - just part of it, so let's take a slice of our list rather than the whole list. We will continue to do this while we are developing our program and getting it to work. 
-Insert `[:5]` immediately after the sitelist and run that cell again by clicking `Shift`+`Return`, and check to see if it worked by printing the subsitelist.
+To check to be sure everything works, we only need to go through part of our site, so let's take a slice of our list rather than the whole list. 
 
-![blank](https://github.com/michellejm/ConflictUrbanism-InfraPolitics/blob/master/img/ws13.png)
+In `NEXT CELL`, type
+`sitelist[:25]`
 
-Fantastic!! We have a list of all the extensions for the subsite locations, and can go visit them to get the data.
+If a list of url suffixes appears, it worked. We have a list of all the extensions for the subsite locations, and can go visit them to get the data.
 
 
 **Step 9. Visit each subplace and collect the data from the table**
-Again, we will go out to the page location and visit it, though we will only visit the first 5 in the list to save time.
+Again, we will go out to the page location and visit it, though we will only visit the first 25 in the list to save time.
 
-The next command is huge, so we will break it down before putting it into our Notebook. It is huge because we have bundled a bunch of instructions into one 'for-loop'. So for each page, we do a whole bunch of things before doing it again for the next page. This is NOT the most efficient way to do this, but it is easy to understand, and accomplishes our goals.
+The next command is huge, so we will break it down before putting it into our Notebook. It is huge because we have bundled a bunch of instructions into one 'for-loop'. So for each page, we do a whole bunch of things before doing it again for the next page. This is NOT the most efficient way to do this, but it is easier to understand, and accomplishes our goals.
 
-for subsite in subsitelist[:5]:
 
-1. go out to all of the subsites and read in the text. 
-
-    `dpage = requests.get("https://census2011.adrianfrith.com"+subsite)
-    mypage = bs4.BeautifulSoup(dpage.text)`
+1. go out to all of the subsites ( which we make by concatenating the url+subsite) and read in the text. 
+`for subsite in subsitelist[:25]:
+    dpage = requests.get(url+subsite)
+    mypage = BeautifulSoup(dpage.text, 'lxml')`
 
 2. make a new list for the location name (that will get rewritten for every item in the loop), find the location name by selecting the CSS id, .topname. We only want the first instance of it (in case there are more), so we select the zeroth element (Python starts counting at zero). We will get the text from the element (the stuff between the opening and closing tags), and add it to the list of location names that we are making. 
 
@@ -333,8 +356,8 @@ Finally, I append this new dataframe to the one I established at the beginning -
 In `NEXT CELL`, type
 
 `for subsite in subsitelist[:5]:
-    dpage = requests.get("https://census2011.adrianfrith.com"+subsite)
-    mypage = bs4.BeautifulSoup(dpage.text)
+    dpage = requests.get(url+subsite)
+    mypage = BeautifulSoup(dpage.text)
     
     locats=[]
     elem = mypage.select('.topname')
