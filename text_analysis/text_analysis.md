@@ -26,15 +26,15 @@ If you have not already installed the [Anaconda](https://www.anaconda.com/downlo
 
 Find Anaconda on your computer, Launch a Jupyter Notebook. 
 
-![jupyter](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/tree/master/Images/jupyter.png)
+![jupyter](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/jupyter.png)
 
 It will open in the browser. All of the directories (folders) in your home directory will appear - we'll get to that later. For now, select 'New' >> Python3 in the upper right corner.
 
-![jupyter](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/tree/master/Images/jupyter1.png)
+![jupyter](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/jupyter1.png)
 
 A blank page with an empty box should appear.
 
-![jupyter](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/tree/master/Images/jupyter2.png)
+![jupyter](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/jupyter2.png)
 
 
 In the box, type:
@@ -45,7 +45,7 @@ In the box, type:
 
 Press **Shift** + **Enter** to run the cell (or click run at the top of the page). Don't worry too much about what this is doing - that will be explained later in this tutorial. For now, we just want to make sure the packages we will need are installed.
 
-![jupyter](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/tree/master/Images/jupyter3.png)
+![jupyter](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/jupyter3.png)
 
 If nothing happens, they are installed and you are ready to move on! If you get an error message, either you have a typo or they are not installed. If it is the later, open the command line or Terminal or BASH and type:
 
@@ -64,7 +64,7 @@ The NLTK downloader should appear in a pop up window. Please install all of the 
 
 Yours will look a little different, but the same interface. Click on the 'all' option and then 'Download'. Once they all trun green, you can close the Downloader dialogue box.
 
-![nltk downloader](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/tree/master/Images/nltk.png)
+![nltk downloader](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/nltk.png)
 
 Return to your Jupyter Notebook and type:
 
@@ -122,7 +122,7 @@ Finally, because of a quirk of Jupyter notebooks, we need to specify that matplo
 
 All three of these commands can be written in the same cell and run all at once (**Shift** + **Enter**) or in different cells. 
 
-![imports](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/tree/master/Images/imports.png)
+![imports](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/imports.png)
 
 If nothing happens, it's all correct. 
 
@@ -132,7 +132,7 @@ Next we need to load all of the nltk corpora into our program. Even though we do
 
 The pre-loaded NLTK texts should appear again. These are pre-formatted datasets. We will still have to do some minor processing, but having the data in this format saves us a few steps. At the end of this tutorial, we will make our own corpus. This is a special type of python object specific to NLTK (it isn't a string, list, or dictionary per se). Sometimes it will behave like a string, and sometimes like a list of words. How it is behaving is noted for each function below.
 
-![imports](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/tree/master/Images/nltkbook.png)
+![imports](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/nltkbook.png)
 
 Let's start by analyzing Moby Dick, which is text1 for NLTK. 
 
@@ -203,7 +203,7 @@ for t in text1:
 		text1_tokens.append(t)
 ```
 
-![code](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/tree/master/Images/code.png)
+![code](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/code.png)
 	
 Another way to type this (more efficiently) is:
 
