@@ -51,42 +51,36 @@ Community Centers in New York City offer a variety of services from classes to f
 *Steps*
 1. Prepare the workspace. When cleaning datasets, it is far too easy to make mistakes, forget where you are, and otherwise get confused. This step helps prevent that.
 	1. Make four tabs (sheets) in your Excel Workbook - 'Original', 'Working', 'Final', 'Incomplete'
-![image](https://github.com/michellejm/ConflictUrbanism_LanguageJustice/blob/master/Images/fourtabs.tiff)
+![four tabs](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/dc3.png)
 	2. Don't change the Original tab
 		1. Make a copy of the data and paste it into 'Working'
 		2. Select all of the cells by clicking on the cell in the bottom right and pressing 'Command' + a
 	3. Remove Duplicates (this step comes early because in the next step, we give every row a unique ID)
-		1. Select the entire sheet by clicking on the box in the  in the upper left corner.
+		1. Select the entire sheet by clicking on the box in the upper left corner.
+		![select all](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/dc1.png)
 		2. Select Data >> Remove Duplicates
-		3. You will be prompted with a dialoge box, Accept the duplicates if you think it is correct.
-![image](https://github.com/michellejm/ConflictUrbanism_LanguageJustice/blob/master/Images/duplicatess.tiff)
+		![remove duplicates](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/dc2.png)
+		3. You will be prompted with a dialoge box, 'Accept' the duplicates if you think it is correct.
 	4. Add an 'ID' column
-	
-		1. Insert a row and typing 1,2,3 and carrying it to the bottom **OR**
-		
-		2. Highlight all of the cells by clicking on the first and then Shift+click on the last cell and then select Edit > Fill > Series 
-		
+		1. Insert a column to the left of column A and title it 'ID'
+		2. Scroll down to see how many values we have. Looks like 464. Click on the first data cell (cell A2) and then  select Edit > Fill > Series. Make the following selections:
+			* Series in Columns
+			* Type Linear
+			* Step value 1
+			* Stop value 464
+					![series options](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/dc4.png)
 	5. At this point, I like to rename the columns into single words (i.e., 'Age Group' > 'AgeGroup'), make the column names bold and freeze the first row and first column.
-![image](https://github.com/michellejm/ConflictUrbanism_LanguageJustice/blob/master/Images/Freeze.tiff)
-
+		![freeze columns](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/dc5.png)
 2. Missing Data
-
-	1. Each Row that is missing an address needs to be removed from the data set since we cannot map it. 
-
-![image](https://github.com/michellejm/ConflictUrbanism_LanguageJustice/blob/master/Images/find_blank.tiff)
-
-		1. Cut and paste these rows into the 'Incomplete' Tab. We won't be able to map this datapoint without finding more information
-		
-		2. A faster way to do this is to sort the sheet by addresses.
-		
-	2. Each Row that has a missing Age Group should stay in the dataset but also be added to the Incomplete tab. 
-	
-		1. Copy and post these rows into the Incomplete Tab
-		
-		2. Fill in the missing values with a null value (i.e., 'Unk', 'NaN', or another value.
-		
-	3. Select all of the cells again and find any remaining empty cells.
-	
+	1. Each Row that is missing an address needs to be removed from the data set since we cannot map it. We want to cut and paste these rows into the 'Incomplete' Tab. We won't be able to map these data without finding more information, though we don't want to lose them completely.
+		1. Copy the header row from the Working Tab into the Incomplete Tab.
+		2. Return to the Working Tab and 'Sort' the sheet by addresses so all the missing ones are at the top. Sort by 'Location1'. The empty cells may appear at the bottom.
+		![sort sheet](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/dc6.png)
+		3. Cut and paste the rows without addresses into the Incomplete Tab.
+	2. Each Row that has a missing Age Group should stay in the dataset but **also** be added to the Incomplete tab. 
+		1. Sort the sheet by Age Group and copy and paste these rows into the Incomplete Tab
+		2. Return to the Working tab and fill in the missing values with a null value (i.e., 'Unk' or 'NaN'). A simple way to do this is to type 'Unk' in the first cell and hover your mouse on the lower left corner to drag the same value the rest of the way down.
+	3. Find and Replace (Under Edit >> Find and Replace) to fill any remaining empty cells. Leave the find box empty and 'Find entire cells only' and Replace with: Unk
 	4. We can return to these datapoints later to recover the information.
 	
 	
