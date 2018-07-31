@@ -160,7 +160,8 @@ In the first cell, we will call all of the programs we will need
 
 Type:
 
-```import requests
+```
+import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import csv
@@ -217,7 +218,8 @@ Instead, we will find all of the 'tr' tags on the page, and within the 'tr' tags
 
 In `NEXT CELL`, type
 
-```for tr in apage.find_all('tr'):
+```
+for tr in apage.find_all('tr'):
     aref = tr.find_all('a')
     for a in aref:
         sitelist.append(a.get('href'))
@@ -237,7 +239,8 @@ Now we will use that list to visit these sites and find the subsites. Just like 
 
 In `NEXT CELL`, type
 
-```for site in sitelist:
+```
+for site in sitelist:
     bpage = requests.get(url+site)
     cpage = BeautifulSoup(bpage.text, 'lxml')
     for tr in cpage.find_all('tr'):
@@ -272,7 +275,8 @@ We will define a function to:
 
 1. define the function and go to a site (which we make by concatenating the url+subsite) and read in the text.  
 
-```def scrape_census_data(subsite):
+```
+def scrape_census_data(subsite):
     dpage = requests.get(url+subsite)
     mypage = BeautifulSoup(dpage.text, 'lxml')
 ```
@@ -281,20 +285,21 @@ We will define a function to:
 
 We need a name list for the categories, a number list for the counts, and a location list. Though the location will stay the same and therefore be very redundant, we will add it to the list every time so that we can use it as a key later and reduce a lot of the redundancy. This is not the only way to set up this structure, but is much more straightforward than some other options(thank you to Will Greary, a student in [Conflict Urbanism Fall 17](http://c4sr.columbia.edu/infra-politics) for pointing this out). 
 
-```gender_name = []
-    gender_num = []
-    gender_loc = []
-    gender_df = pd.DataFrame(columns=['locID', 'gender', 'count'])
+```
+gender_name = []
+gender_num = []
+gender_loc = []
+gender_df = pd.DataFrame(columns=['locID', 'gender', 'count'])
 
-    race_name = []
-    race_num = []
-    race_loc = []
-    race_df = pd.DataFrame(columns=['locID', 'race', 'count'])
+race_name = []
+race_num = []
+race_loc = []
+race_df = pd.DataFrame(columns=['locID', 'race', 'count'])
 
-    lang_name = []
-    lang_num = []
-    lang_loc = []
-    lang_df = pd.DataFrame(columns=['locID', 'language', 'count'])
+lang_name = []
+lang_num = []
+lang_loc = []
+lang_df = pd.DataFrame(columns=['locID', 'language', 'count'])
 
 ```
 
@@ -315,15 +320,16 @@ Thinking about how we will use the data and what the data represents, it will be
 This is the first table, so we will find all of the tables, and then find all of the 'td' tags. We don't want to collect the percentages - just the raw numbers, and we notice that all of the percentages have the % symbol in them. So, if a cell has a %, skip it.
 
 
-``` gender_table = mypage.find_all("table")[0]
-    for td in gender_table.find_all("td"):
-        if '%' not in td.text:
-            try:
-                value = float(td.text)
-                gender_num.append(value)
-                gender_loc.append(locat)
-            except:
-                gender_name.append(td.text)
+``` 
+gender_table = mypage.find_all("table")[0]
+for td in gender_table.find_all("td"):
+	if '%' not in td.text:
+		try:
+			value = float(td.text)
+			gender_num.append(value)
+			gender_loc.append(locat)
+		except:
+			gender_name.append(td.text)
                 
 ```
 
@@ -398,7 +404,8 @@ The problem is that some pages don't have any data on them, or don't have data f
 
 So, all together, the code is as follows:
 
-``` def myscraper(subsite):
+``` 
+def myscraper(subsite):
     dpage = requests.get(url+subsite)
     mypage = BeautifulSoup(dpage.text, 'lxml')
     
@@ -479,7 +486,8 @@ So, all together, the code is as follows:
 Now that we have our method of collecting the data from all of the sites, we can take it and fill our dataframes with the individual dataframes. 
 
 
-```all_gender = []
+```
+all_gender = []
 all_race = []
 all_lang = []
 
@@ -512,7 +520,8 @@ We will pivot the table, and assign the locID as the index, the columns as the c
 
 In `NEXT CELL`, type
 
-```gender = gender_df.pivot_table(index='locID', columns='gender', values='count').fillna(0)
+```
+gender = gender_df.pivot_table(index='locID', columns='gender', values='count').fillna(0)
 race = race_df.pivot_table(index='locID', columns='race', values='count').fillna(0)
 language = lang_df.pivot_table(index='locID', columns='language', values='count').fillna(0)
 ```
@@ -524,7 +533,8 @@ Finally, we save the whole dataframe to a csv on our computer. This will be save
 
 In `NEXT CELL`, type
 
-```gender.to_csv('csvs/jhb_gender.csv')
+```
+gender.to_csv('csvs/jhb_gender.csv')
 race.to_csv('csvs/jhb_race.csv')
 language.to_csv('csvs/jhb_lang.csv')
 ```
