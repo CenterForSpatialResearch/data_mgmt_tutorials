@@ -350,7 +350,8 @@ for word in b_words:
     if word in text1_clean:
         my_list.append(word)
     else:
-        pass```
+        pass
+```
 
 And then we will print the results.
 
