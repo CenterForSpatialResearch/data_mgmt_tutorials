@@ -4,9 +4,9 @@ By the end of this tutorial you will be able to:
 
 * Download an original dataset from NYC Open Data
 * Modify that dataset to suit your needs
-* Strategically use exploratory visualizations to better understand the dataset
+* Strategically use exploratory visualizations to better understand a dataset
 
-For this tutorial, we are going to take a publicly available dataset from the Internet and map some of the datapoints. Most datasets will need some cleaning before they are ready to be worked with; there are usually some errors, missing information, duplicate information, etc. Therefore, we need to clean this dataset before we begin using it. 
+For this tutorial, we are going to take a publicly available dataset and map some of the datapoints. Most datasets will need some cleaning before they are ready to be visualized; there are usually some errors, missing information, duplicate information, etc. Therefore, we will clean this dataset before we begin using it. 
 
 *Our questions:*
 Community Centers in New York City offer a variety of services from classes to family support to immigration help and much more. This is an exploratory mapping exercise where we want to know how these services are situated in the city.
@@ -19,7 +19,7 @@ Community Centers in New York City offer a variety of services from classes to f
 	2. The blue funnel is a filtered table view
 	3. The green paperclip is a document
 	4. The darker green compus is a map
-	5. The light blue box with three charts is the 'Data Lens Pages' and includes automatically generated charts and graphs
+	5. The light blue box with three charts is the 'Data Lens Page' and includes automatically generated charts and graphs
 	
 3. Select the Table View: DYCD_after-school_programs__Neighborhood_Development_Area__NDA__Family_Support
 
@@ -29,16 +29,17 @@ Community Centers in New York City offer a variety of services from classes to f
 	1. What do all of the columns mean?
 	2. Are there any columns that are going to be irrelevant to your project?
 	3. Is there geo-referenced information in this dataset? What does it look like?
-	4. What problems will need to resolve?
+	4. What problems will we need to resolve?
 	
-5. Export the data and download it as a csv file. ('Export' is light blue on the far right side)
+5. Export the data and download it as a csv file. 
 ![image](https://github.com/michellejm/ConflictUrbanism_LanguageJustice/blob/master/Images/bluebutton.tiff)
 
-6. Go to Excel and open a new spreadsheet. You will be guided through a series of steps asking how the data is delimited. It is 'delimited', not 'fixed-width'. "CSV" stands for "comma separated values", so select 'comma', and keep the quotes for delimiting text. 
+6. Go to Excel and open a new spreadsheet. You will be guided through a series of steps asking how the data is delimited. It is 'delimited', not 'fixed-width'. "CSV" stands for "comma separated values", so select 'comma', and keep the quotes for delimiting text.
+ 
 7. Click 'Next' and 'Finish'.
-**STOP** *Does the data look how you expected it to look? Why or why not? What happened? How can we fix it?*
 
-7. Go back to NYC OpenData
+
+8. Go back to NYC OpenData
 
 	1. Select 'Manage' (brown button on left)
 	
@@ -48,13 +49,13 @@ Community Centers in New York City offer a variety of services from classes to f
 	
 	4. Repeat **Step 6**
 	
-8. On using Excel
+9. Excel
 
 	1. There are many tools to clean data, and if you are going to work with large datasets regularly, you will want to learn Python+Pandas, R, SAS, or another programming language. However, for our purposes, you do not need anything more powerful than Excel.
 	
 	2. The data we are going to work with is relatively "clean." Most datasets made available by governments and large institutions are "clean", meaning that there are very few errors, duplicate entries, misspellings, alternative descriptions, etc. 
 	
-	3. The messier the data, the more powerful tool you will need. For working with very messy data without learning a programming language, I suggest [Open Refine](http://openrefine.org/)
+	3. The messier the data, the more powerful tool you will need. For working with very messy data without learning a programming language, try [Open Refine](http://openrefine.org/).
 
 
 **Plan for cleaning**
