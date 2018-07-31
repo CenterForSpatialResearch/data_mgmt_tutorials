@@ -102,11 +102,11 @@ There seems to be raw numbers and percentages presented. I want the raw numbers,
 **Step 1. Make sure the subsites data is visible in the HTML**
 Go to the webpage you want to scrape (https://census2011.adrianfrith.com/place/798). Right-click and select 'Inspect Element' 
 
-![blank](https://github.com/michellejm/ConflictUrbanism-InfraPolitics/blob/master/img/ws1.png)
+![blank](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/ws1.png)
 
 A box should appear on the right hand side with a lot of code. 
 
-![blank](https://github.com/michellejm/ConflictUrbanism-InfraPolitics/blob/master/img/ws2.png)
+![blank](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/ws2.png)
 
 There are a lot of tools here (at the bottom of this box) that could make our life easier. We won't use them now, but just know that they are there. 
 
@@ -120,7 +120,7 @@ If you move you cursor around in this box, it will highlight different elements 
   
 By right clicking on the title, we see that the name of this sub area is in the class attribute, 'topname'
 
-![blank](https://github.com/michellejm/ConflictUrbanism-InfraPolitics/blob/master/img/ws3.png)
+![blank](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/ws3.png)
 
 
 **Step 2. Make sure the links can be collected programmatically**
@@ -129,13 +129,13 @@ Now go back to the [Johannesburg site](https://census2011.adrianfrith.com/place/
 
 Inspect the main place to see how the links are formated:
 
-![blank](https://github.com/michellejm/ConflictUrbanism-InfraPolitics/blob/master/img/ws4.png)
+![blank](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/ws4.png)
 
 We see it is in the `<td class="namecell">` in an `<a href   >` the href points us to the address extension, /place/798014 if we paste that into the browser after the https://census2011.adrianfrith.com/, we see that it takes us to the page we want. We found the addresses. 
     
 Let's double check that it is the same on the main page site by inspecting the element.
 
-![blank](https://github.com/michellejm/ConflictUrbanism-InfraPolitics/blob/master/img/ws5.png)
+![blank](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/ws5.png)
 
 **Step 3. Set up the program**
 
@@ -144,15 +144,15 @@ Let's double check that it is the same on the main page site by inspecting the e
 Find Anaconda on your computer (it might not be in your Applications, so you may have to search for it).
 
 Launch a Jupyter Notebook
-![blank](https://github.com/michellejm/ConflictUrbanism-InfraPolitics/blob/master/img/ws6.png)
+![blank](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/ws6.png)
 
 It will open in a browser window and you will see a list of all of your files. Open a New Python3 Notebook.
 
-![blank](https://github.com/michellejm/ConflictUrbanism-InfraPolitics/blob/master/img/ws7.png)
+![blank](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/ws7.png)
 
 A cell-by-cell interpreter will open.
 
-![blank](https://github.com/michellejm/ConflictUrbanism-InfraPolitics/blob/master/img/ws8.png)
+![blank](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/ws8.png)
 
 At this stage, we should name and save my notebook - we can save it anywhere, it won't be reading any other files for now. It WILL be creating a file, so save it where ever you want your data to be saved. If you can avoid it, don't don't save it somewhere that iCloud will be involved.
 
@@ -170,7 +170,7 @@ import csv
 
 If nothing happens (rather, an asterisk appears in the brackets, and then the asterisk becomes a number), then it worked. 
 
-![blank](https://github.com/michellejm/ConflictUrbanism-InfraPolitics/blob/master/img/ws9.png)
+![blank](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/ws9.png)
 
 **Step 4. Set up our program and download all the packages we think we will need**
 
@@ -204,7 +204,7 @@ apage = BeautifulSoup(page.text, 'lxml')
 
 You may get a warning about the default language, and how to specify a language so your program can be used across multiple environments. This will not affect anything, so just ignore it. 
 
-![blank](https://github.com/michellejm/ConflictUrbanism-InfraPolitics/blob/master/img/ws10.png)
+![blank](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/ws10.png)
 
 To get rid of the warning, use this code instead to specify the markup:
 
@@ -229,7 +229,7 @@ In `NEXT CELL`, type
 
 `print(sitelist)`
 
-![blank](https://github.com/michellejm/ConflictUrbanism-InfraPolitics/blob/master/img/ws11.png)
+![blank](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/ws11.png)
 
 
 Now we will use that list to visit these sites and find the subsites. Just like before, we will save the url, but this time, we will loop through our list of sites, and read each site into our program as a beautiful soup object. We will then find all of the 'tr' tags and make a list of all the 'a; tags (name 'aref'), and for each element in the 'aref' list, find its contents, and add those to the subsite list.
@@ -246,7 +246,7 @@ In `NEXT CELL`, type
             
 This will probably take a long time to compile.
 
-![blank](https://github.com/michellejm/ConflictUrbanism-InfraPolitics/blob/master/img/ws12.png)
+![blank](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/ws12.png)
 
 To check to be sure everything works, we only need to view part of our site, so let's take a slice of our list rather than the whole list. 
 
@@ -529,7 +529,7 @@ Now if we run this, it will download all of the data to our csv file. (You may h
 
 Open with Excel or another program that can read csv's. 
 
-![blank](https://github.com/michellejm/ConflictUrbanism-InfraPolitics/blob/master/img/ws15.png)
+![blank](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/ws15.png)
 
 ### Download Shape Files
 
