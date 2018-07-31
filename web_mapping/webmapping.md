@@ -411,6 +411,8 @@ The full completed code for this example is available here:
 
 
 
-______________________________________________________________________________________________________________
 
-Tutorial written by Dare Brawley, for *Mapping for the Urban Humanities*, a intensive workshop for Columbia University faculty taught in Summer 2017 by the [Center for Spatial Research](http://c4sr.columbia.edu). More information about the course is available [here](http://c4sr.columbia.edu/courses/mapping-urban-humanities-summer-bootcamp). It is based on the tutorial prepared by Michelle McSweeney for the Spring 2017 course, *Conflict Urbanism: Language Justice* offered at Columbia Univeristy through the Center for Spatial Research.
+********************************************************
+
+
+Tutorial written by [Michelle McSweeney](www.michelleamcsweeney.com) for the the [Center for Spatial Research](http://c4sr.columbia.edu) at Columbia University.

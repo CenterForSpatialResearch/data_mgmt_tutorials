@@ -204,7 +204,7 @@ apage = BeautifulSoup(page.text, 'lxml')
 
 You may get a warning about the default language, and how to specify a language so your program can be used across multiple environments. This will not affect anything, so just ignore it. 
 
-![blank](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/ws10.png)
+![dataframe](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/ws10.png)
 
 To get rid of the warning, use this code instead to specify the markup:
 
@@ -230,7 +230,7 @@ In `NEXT CELL`, type
 
 `print(sitelist)`
 
-![blank](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/ws11.png)
+![sitelist](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/ws11.png)
 
 
 Now we will use that list to visit these sites and find the subsites. Just like before, we will save the url, but this time, we will loop through our list of sites, and read each site into our program as a beautiful soup object. We will then find all of the 'tr' tags and make a list of all the 'a; tags (name 'aref'), and for each element in the 'aref' list, find its contents, and add those to the subsite list.
@@ -246,9 +246,9 @@ In `NEXT CELL`, type
             subsitelist.append(a.get('href'))
 ```
             
-This will probably take a long time to compile.
+This will probably take a long time to compile. If you need to stop it, use the Keyboard interrupt button
 
-![blank](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/ws12.png)
+![stop button](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/ws12.png)
 
 To check to be sure everything works, we only need to view part of our site, so let's take a slice of our list rather than the whole list. 
 
@@ -301,6 +301,7 @@ We need a name list for the categories, a number list for the counts, and a loca
 3. get the location
 
 This command tells our program to find the first (0th) instance of the css selector 'topname' (the leading period communicates )
+
 ``` locat = mypage.select('.topname')[0].getText()
 
 ```

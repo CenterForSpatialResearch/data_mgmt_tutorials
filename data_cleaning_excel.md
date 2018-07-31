@@ -1,12 +1,21 @@
-# Data Cleaning with Excel and NYC Open Data
+# Data Cleaning 
+
+Data cleaning itself is a highly specific task. Each and every instance will be different because the data will be formatted in different ways and the project will be unique. Much of data cleaning is custom problem solving, transforming the data into the right format. This is a very basic introduction to data cleaning, and assumes only familiarity with Excel. However, data cleaning is a broad topic that is not easily pinned down, and you are likely to need to do a variety of different steps in order to employ it on your own dataset. This tutorial will walk through cleaning one dataset, highlighting some of the strategies and best practices.
+
+We will use Excel for this task because the data is relatively small, straightforward, and clean. Most datasets made available by governments and large institutions are "clean", meaning that there are very few errors, duplicate entries, misspellings, alternative descriptions, etc. 
 
 By the end of this tutorial you will be able to:
 
 * Download an original dataset from NYC Open Data
 * Modify that dataset to suit your needs
+* Pivot a data table
 * Strategically use exploratory visualizations to better understand a dataset
 
-For this tutorial, we are going to take a publicly available dataset and map some of the datapoints. Most datasets will need some cleaning before they are ready to be visualized; there are usually some errors, missing information, duplicate information, etc. Therefore, we will clean this dataset before we begin using it. 
+For this tutorial, we are going to take a publicly available dataset and map some of the datapoints. Most datasets will need some cleaning before they are ready to be visualized; there are usually some errors, missing information, duplicate information, organization issues, etc. Therefore, we will clean this dataset before we begin using it. 
+
+### Data for visualization
+When we talk about data, we often mention that we are looking for data which is "long and skinny" by that we mean that the 
+
 
 *Our questions:*
 Community Centers in New York City offer a variety of services from classes to family support to immigration help and much more. This is an exploratory mapping exercise where we want to know how these services are situated in the city.
@@ -15,84 +24,42 @@ Community Centers in New York City offer a variety of services from classes to f
 1. Go to [NY OpenData](https://nycopendata.socrata.com/). As you can see, there are a lot of datasets available categorized under a variety of topics. 
 
 2. Use the search bar to find datasets that reference immigration. You will likely come to a list of Datasets.
-	1. The orange grid is a table
-	2. The blue funnel is a filtered table view
-	3. The green paperclip is a document
-	4. The darker green compus is a map
-	5. The light blue box with three charts is the 'Data Lens Page' and includes automatically generated charts and graphs
 	
-3. Select the Table View: DYCD_after-school_programs__Neighborhood_Development_Area__NDA__Family_Support
+3. Today we are going to work with: DYCD_after-school_programs__Neighborhood_Development_Area__NDA__Family_Support
 
 ![image](https://github.com/michellejm/ConflictUrbanism_LanguageJustice/blob/master/Images/opendata.tiff)
 
 4. Spend a few minutes getting acquainted with the data.
-	1. What do all of the columns mean?
-	2. Are there any columns that are going to be irrelevant to your project?
-	3. Is there geo-referenced information in this dataset? What does it look like?
+	1. What does each column refer to?
+	2. Are there any columns that are going to be irrelevant to our project?
+	3. Is there georeferenced information in this dataset? What does it look like?
 	4. What problems will we need to resolve?
 	
-5. Export the data and download it as a csv file. 
-![image](https://github.com/michellejm/ConflictUrbanism_LanguageJustice/blob/master/Images/bluebutton.tiff)
-
-6. Go to Excel and open a new spreadsheet. You will be guided through a series of steps asking how the data is delimited. It is 'delimited', not 'fixed-width'. "CSV" stands for "comma separated values", so select 'comma', and keep the quotes for delimiting text.
- 
-7. Click 'Next' and 'Finish'.
-
-
-8. Go back to NYC OpenData
-
-	1. Select 'Manage' (brown button on left)
+5. Export the data and download it as a csv for Excel file. 
+![image](https://github.com/michellejm/ConflictUrbanism_LanguageJustice/blob/master/Images/bluebutton.tiff) "CSV" stands for "comma separated values".
 	
-	2. Rearrange the columns so that the first column is last
-	
-	3. Export the data and download it as a csv file. 
-	
-	4. Repeat **Step 6**
-	
-9. Excel
-
-	1. There are many tools to clean data, and if you are going to work with large datasets regularly, you will want to learn Python+Pandas, R, SAS, or another programming language. However, for our purposes, you do not need anything more powerful than Excel.
-	
-	2. The data we are going to work with is relatively "clean." Most datasets made available by governments and large institutions are "clean", meaning that there are very few errors, duplicate entries, misspellings, alternative descriptions, etc. 
-	
-	3. The messier the data, the more powerful tool you will need. For working with very messy data without learning a programming language, try [Open Refine](http://openrefine.org/).
-
-
 **Plan for cleaning**
 
 1. Remove duplicates
-
 2. Handle missing values
-
 3. Conversion issues (i.e., numbers rendered as dates, etc.) 
-
 4. Separate cells with multiple pieces of data, concatenate cells if needed
-
 5. Trim leading and trailing white space
 
 *Data from different sources will need different approaches, this is appropriate for this particular dataset.*
 
 *Steps*
 1. Prepare the workspace. When cleaning datasets, it is far too easy to make mistakes, forget where you are, and otherwise get confused. This step helps prevent that.
-
 	1. Make four tabs (sheets) in your Excel Workbook - 'Original', 'Working', 'Final', 'Incomplete'
 ![image](https://github.com/michellejm/ConflictUrbanism_LanguageJustice/blob/master/Images/fourtabs.tiff)
-	
 	2. Don't change the Original tab
-	
 		1. Make a copy of the data and paste it into 'Working'
-		
 		2. Select all of the cells by clicking on the cell in the bottom right and pressing 'Command' + a
-		
 	3. Remove Duplicates (this step comes early because in the next step, we give every row a unique ID)
-	
-		1. Select the entire sheet by clicking in the upper right hand corner.
-		
-		2. Select Data > Remove Duplicates
-		
+		1. Select the entire sheet by clicking on the box in the  in the upper left corner.
+		2. Select Data >> Remove Duplicates
 		3. You will be prompted with a dialoge box, Accept the duplicates if you think it is correct.
 ![image](https://github.com/michellejm/ConflictUrbanism_LanguageJustice/blob/master/Images/duplicatess.tiff)
-		
 	4. Add an 'ID' column
 	
 		1. Insert a row and typing 1,2,3 and carrying it to the bottom **OR**
