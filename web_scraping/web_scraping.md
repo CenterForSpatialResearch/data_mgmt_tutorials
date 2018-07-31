@@ -551,10 +551,10 @@ However, running this will take some time, so try it with a slice first. Here we
 
 In `NEXT CELL`, type
 
-```from urllib.request import urlretrieve
+``` from urllib.request import urlretrieve
 for subsite in subsitelist[:5]:
-mylink = url+subsite+"/kml"
-urlretrieve(mylink, "kmls/" + subsite + ".kml")
+	mylink = url+subsite+"/kml"
+	urlretrieve(mylink, "kmls/" + subsite + ".kml")
 ```
  
 
