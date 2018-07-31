@@ -302,7 +302,8 @@ We need a name list for the categories, a number list for the counts, and a loca
 
 This command tells our program to find the first (0th) instance of the css selector 'topname' (the leading period communicates )
 
-``` locat = mypage.select('.topname')[0].getText()
+```
+locat = mypage.select('.topname')[0].getText()
 
 ```
 
