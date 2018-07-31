@@ -217,10 +217,11 @@ Instead, we will find all of the 'tr' tags on the page, and within the 'tr' tags
 
 In `NEXT CELL`, type
 
-`for tr in apage.find_all('tr'):
+```for tr in apage.find_all('tr'):
     aref = tr.find_all('a')
     for a in aref:
-        sitelist.append(a.get('href'))`
+        sitelist.append(a.get('href'))
+```
 
 This is the first time we've collected something from outside our program.
 But, when we run it nothing happens, it would be great if we could see the result to see if it matches what we expected. Let's print it to make sure we have all the links we think we should have.
