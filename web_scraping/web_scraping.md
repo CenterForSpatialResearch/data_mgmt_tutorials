@@ -237,13 +237,14 @@ Now we will use that list to visit these sites and find the subsites. Just like 
 
 In `NEXT CELL`, type
 
-`for site in sitelist:
+```for site in sitelist:
     bpage = requests.get(url+site)
     cpage = BeautifulSoup(bpage.text, 'lxml')
     for tr in cpage.find_all('tr'):
         aref = tr.find_all('a')
         for a in aref:
-            subsitelist.append(a.get('href'))`
+            subsitelist.append(a.get('href'))
+```
             
 This will probably take a long time to compile.
 
@@ -270,9 +271,11 @@ We will define a function to:
 * return the dataframes
 
 1. define the function and go to a site (which we make by concatenating the url+subsite) and read in the text.  
-`def scrape_census_data(subsite):
+
+```def scrape_census_data(subsite):
     dpage = requests.get(url+subsite)
-    mypage = BeautifulSoup(dpage.text, 'lxml')`
+    mypage = BeautifulSoup(dpage.text, 'lxml')
+```
 
 2. set up the container structure 
 
