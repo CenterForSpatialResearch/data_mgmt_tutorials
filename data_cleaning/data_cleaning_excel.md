@@ -15,6 +15,8 @@ For this tutorial, we are going to take a publicly available dataset and map som
 
 ## Part I : Making "wide" data "long
 
+**Download data [HERE](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/data_cleaning/mileage.csv)**
+
 When we talk about data, we often mention that we are looking for data which is "long and skinny" by that we mean that repetition is ok so long as there is no data in the headers. For example, the following table has data in the headers, and without a label for the table, we don't know what the number represent. Generally, data that you want to use for any sort of mapping, visualization, or analysis needs to have descriptive headers and data in each column. It can have repetition so long as no row is completely the same. 
 
 |  Week  |	Mon | Tues  | Wed   | Thurs  | Fri   | Sat  | Sun   |
