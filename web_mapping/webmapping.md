@@ -35,13 +35,18 @@ Again providing, the latitude, longitude, and zoom level.
 
 ![google map](https://github.com/CenterForSpatialResearch/MappingForTheUrbanHumanities_2017/blob/master/Tutorials/Images/Webmaps/aweb1.png)
 
-You may be thinking that 256x256 is a square, but projections that represent the world as a square are seriously distorted, and you are correct. Likewise, you may already be thinking about how to change the projection of a web map. Web tiles are in a projection called psuedomercator. 
+All webmaps have to contain this information to render, and yours will, too. 
 
+By this point, you may be thinking that 256x256 is a square, but projections that represent the world as a square are seriously distorted, and you are correct. Likewise, you may already be thinking about how to change the projection of a web map. Web tiles are in a projection called pseudomercator. You should not change this unless you *really* know what you are doing and have a *really* good reason to do it. This is a drawback of Webmaps. 
+
+So, while putting a map on a website may increase the visibility of your site, allowing you to reach a wider audience, an actual webmap may not always show what you want it to (another option is to embed a static map as an image). Similarly, a web map allows for interactive features such as popups and zooming, but sometimes these features can distract rather than explain. Ultimately, the type of map you choose is dependent upon your project's goals. 
+
+Now we will turn to implementing a web map using leaflet and the stamen tileserver. 
 
 
 #### The Premise
 
-With this exercise our goal is to create a simple interactive online map that shows the New York Botanical Garden just after it was initially constructed and annotates several important buildings and roads at the NYBG. We will use the 1902 Bronx map (that we georeferenced in the previous exercise) as well as some of the features we digitized adding additional annotations.
+With this exercise our goal is to create a simple interactive online map that shows the New York Botanical Garden just after it was initially constructed and annotates several important buildings and roads at the NYBG. We will use the 1902 Bronx map as well as some of the features we digitized adding additional annotations.
 
 For context lets take a look at what this final map will look like. It is visible [here](https://centerforspatialresearch.github.io/MappingForTheUrbanHumanities_2017/Class_Data/3_Webmaps/).
 
@@ -170,15 +175,13 @@ As mentioned above we are using the Leaflet.js javascript library to create a we
 
 Leaflet is a set of commands built with javascript that allow us to make webmaps relatively easily.
 
-We will also use another library called jQuery.js that will allow us to import the points and road outlines data.
+We will also use another library called jQuery.js that will allow us to import the points and road outlines data. It may be helpful to think of these libraries as sets of commands that our program can draw on. They aren't, themselves, the language, but they extend what Javascript can do on its own. 
 
-It is helpful to think of these libraries as sets of commands that our program can draw on.
-
-Because Leaflet and jQuery are both libraries we need to include them in our html document so that they can be referenced by our program when it runs in the browser. These libraries are really just also sets of text files, contained in javascript and css file types.
+Because Leaflet and jQuery are both libraries we need to reference them explicitly in our html document so that they can be referenced by our program when it runs in the browser. These libraries are really just also sets of text files, contained in javascript and css file types.
 
 We include them in the header section: `<head>`
 
-1. *Download required libraries.* We have already done this step for you. But for reference we downloaded the Leaflet.js library from [here](http://leafletjs.com/download.html). And we downloaded the jQuery library from [here](http://jquery.com/download/).  
+1. *Download required libraries.* We have already done this step for you. You can find them in the folders contained within the 'mymap folder on the GitHub page. But for reference we downloaded the Leaflet.js library from [here](http://leafletjs.com/download.html). And we downloaded the jQuery library from [here](http://jquery.com/download/).  
 2. *Name your map.* The `<title>` tag contains the name of your map that will appear at the top of the browser window.
 3. *Import Leaflet's CSS.* Leaflet comes with its own CSS styles that specify how certain elements, like the zoom buttons, should look. We have placed this css file in the `css` folder and now need to tell our index.html document where to find it.
 	`<link rel="stylesheet"  href="css/leaflet.css"/>`
@@ -233,7 +236,7 @@ L.tileLayer('http://tile.stamen.com/toner-lite/{z}/{x}/{y}.png',
 **Add GeoreferencedHistorical Map**
 We will now embed the "Map or plan of that part of the Borough of the Bronx, City of New York, lying easterly of the Bronx River" published in 1902 that we georeferenced in the previous exercise.
 
-1. *Create a variable* that contains the url of the image, in this case the path to where is it stored in the directory for our webmap.
+1. *Create a variable* that contains the url of the image, in this case the path to where is it stored in the directory for our webmap. Unlike some other programming languages, Javascript requires that you explicitly declare your variables.
 `var imageUrl = 'data/BronxMap.png';`
 2. *Create another variable* where you define the area that the image covers using two pairs of latitude and longitude coordinates for the top left and bottom right corners of your image. We found these coordinates using the `lat lon tools` plugin for QGIS when we were preparing the historical map raster earlier.
 `var imageBounds = [[40.8846829955, -73.8978315922], [40.8290586719, -73.8201512858]];`
@@ -437,10 +440,13 @@ The full completed code for this example is available here:
 </html>
 ```
 
+### Embedding the map
 
+To embed this map on your website, you will need to put it in an iFrame. This means putting your 'mymap' folder in the folder you have your webpage and then enclosing the location of that folder within iFrame tags. There are many ways that you can customize your iframe tags to control the size of your map with respect to your webpage. These can be found [in the docs](https://html.com/tags/iframe/).
 
+In this case, your map is built within a folder called 'mymap', so you would write this code in the *body* of your HTML document.
 
-
+` <iframe src="mymap/index.html"></iframe> 
 
 
 ********************************************************
