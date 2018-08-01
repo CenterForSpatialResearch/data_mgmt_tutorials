@@ -1,4 +1,4 @@
-## Making Webmaps with Leaflet.js
+# Making Webmaps with Leaflet.js
 
 With this exercise you will learn how to create a basic web-based maps using the javascript library, leaflet.js. Webmapping has some very important distinctions that differentiate it from static mapping. This tutorial is intended to illustrate the differences between webmaps and static maps. To reach this goal, we will use pre-written code. Therefore, this tutorial is not intended to be an introduction to coding, but rather an introduction to the components of a web map as well as the constraints and affordances web mapping provides. Upon completing this tutorial you will:
 
@@ -8,9 +8,36 @@ With this exercise you will learn how to create a basic web-based maps using the
 4. Experiment with layer styles and map composition
 5. Identify the strengths and weaknesses of webmapping to make an informed decision about how to publish your project
 
-#### Origins of Webmapping
+## Origins of Webmapping
 
-Static maps made with QGIS and other GIS programs are 
+The first web-based maps for public use were navigational tools such as [MapQuest](https://www.mapquest.com/). These maps were revolutionary for the time (1996). Suddenly, you could enter a starting and ending location and get a customized route, all because of improvements to GIS technology. The only problem was that if you were traveling a long distance, the entire route would have to load before you would know if you needed to turn left or right out of your driveway: It was slow. Again, at that time, slowness wasn't as much of an issue. However, it could (and would) get much better. 
+
+Almost as soon as MapQuest appeared, engineers started to make it better. One version of better is faster. People realized very quickly that you don't need the entire map at all times. Rather, just the area nearby at the relevant resolution would be enough. In 1997, engineers working with the [Open Geospatial Consortium](http://www.opengeospatial.org/) devised a way to load just the relevant area using *tiles*. 
+
+
+#### Webtiles
+
+Web tiles are 256x256 pixel images of an area. They contain spatial data, which makes them different from a regular image.
+
+Almost all modern web maps load tiles from an outside server. There are a few [Tile Servers](https://wiki.openstreetmap.org/wiki/Tile_servers) where these tiles come from. When making your map, you will specify which tile server you want to use. Popular ones are [Open Street Maps](https://switch2osm.org/using-tiles/) and [Stamen](http://maps.stamen.com/#terrain/12/37.7706/-122.3782) (we will use Stamen because they are pretty). Making tiles is very difficult, and far beyond the scope of this tutorial. 
+
+When you call a map, you have to call a center point and a zoom level. At zoom level 0, 1 tile shows the whole world. At zoom level 1, 4 tiles show the whole world, zoom 3 = 16 tile, etc. (the formula is 4^z to show the whole world). Zoom level 4 is generally good for showing the continental United States. Zoom level 16 is good for an NYC neighborhood. As the zoom level increases, the resolution does, too. So at zoom level 4, you can't see city streets, but at zoom level 17, that's all you can see (obviously in the intervening years, there have been some small improvements, but this is still the system). 
+
+All of this data is in the address of a webmap. Let's look at the Stamen website. This address takes you to their web server: 
+
+http://maps.stamen.com/#terrain/12/37.7706/-122.3782
+
+This one is fairly easy: in order, this is the site, the style, the zoom level, latitude, and longitude. Google Maps are a little more intimidating, but contain the same information. Once you strip off the excess data calls, a Google Maps url looks like this:
+
+https://www.google.com/maps/@40.806403,-73.96322,15z
+
+Again providing, the latitude, longitude, and zoom level.
+
+![google map](https://github.com/CenterForSpatialResearch/MappingForTheUrbanHumanities_2017/blob/master/Tutorials/Images/Webmaps/aweb1.png)
+
+You may be thinking that 256x256 is a square, but projections that represent the world as a square are seriously distorted, and you are correct. Likewise, you may already be thinking about how to change the projection of a web map. Web tiles are in a projection called psuedomercator. 
+
+
 
 #### The Premise
 
