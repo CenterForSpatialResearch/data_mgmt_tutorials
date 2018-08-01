@@ -13,9 +13,83 @@ By the end of this tutorial you will be able to:
 
 For this tutorial, we are going to take a publicly available dataset and map some of the datapoints. Most datasets will need some cleaning before they are ready to be visualized; there are usually some errors, missing information, duplicate information, organization issues, etc. Therefore, we will clean this dataset before we begin using it. 
 
-### Data for visualization
-When we talk about data, we often mention that we are looking for data which is "long and skinny" by that we mean that the 
+## Part I : Making "wide" data "long
 
+When we talk about data, we often mention that we are looking for data which is "long and skinny" by that we mean that repetition is ok so long as there is no data in the headers. For example, the following table has data in the headers, and without a label for the table, we don't know what the number represent. Generally, data that you want to use for any sort of mapping, visualization, or analysis needs to have descriptive headers and data in each column. It can have repetition so long as no row is completely the same. 
+
+|  Week  |	Mon | Tues  | Wed   | Thurs  | Fri   | Sat  | Sun   |
+|:------:|:----:|:-----:|:-----:|:------:|:-----:|:----:|:-----:|
+| Week 1 |  0   | 5     | 5     | 0      | 8     |  0   |  15  |
+| Week 2 |  0   | 6     | 4     | 0      | 8     |  0   |  16  |
+| Week 3 |  0   | 6     | 4     | 0      | 8     |  0   |  18  |
+ 
+If we want to make a visualization, this data would be better formatted as below:
+
+| Week  |	Day  | Mileage  |
+|:-----:|:------:|:--------:|
+|  1    |  Mon   |   0      |
+|  1    |  Tues  |   5      |
+|  1    |  Wed   |   5      |
+|  1    |  Thurs |   0      |
+|  1    |  Fri   |   8      |
+|  1    |  Sat   |   0      |
+|  1    |  Sun   |   15     |
+|  2    |  Mon   |   0      |
+|  2    |  Tues  |   6      |
+|  2    |  Wed   |   4      |
+|  2    |  Thurs |   0      |
+|  2    |  Fri   |   8      |
+|  2    |  Sat   |   0      |
+|  2    |  Sun   |   16     |
+|  3    |  Mon   |   0      |
+|  3    |  Tues  |   6      |
+|  3    |  Wed   |   4      |
+|  3    |  Thurs |   0      |
+|  3    |  Fri   |   8      |
+|  3    |  Sat   |   0      |
+|  3    |  Sun   |   18     |
+
+This is, of course, very hard on human eyes, we tend to be able to read the first version better. However, if you want to make a visualization, add to this data, or otherwise interact with it programmatically, the second option is much better. Maybe we wanted to add a link to the route for each day, or the number of miles we actually ran (versus what was prescribed), or the type of shoes we should wear, or if it is a tempo run, easy, etc. This would be impossible with the first table, but can all be added to the second table by adding new columns, and infinite number of rows detailing what should happen on each run. 
+
+Unfortunately, performing this operation in Excel is exceedingly difficult. The best solution for Pivoting this data is to use Tableau. Tableau has a free online version and a free-for-educators desktop version. If you have a lot of data like this to transform, and the only thing you ever do in Tableau is transform this data, it will be worth signing up for it. 
+
+But, for us, we are only working with this one dataset, and it is small, so we will do it manually. 
+
+First, because we are going to manually move our numbers, we would rather copy and paste 7 rows 3 times than 3 rows 7 times. So let's start by transposing our data. First, select all of the cells with content in them and Copy them. 
+
+![select cells](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/dc9.png)
+
+Make another tab (at the bottom of the page), and select 'Paste Special'. A dialogue box should appear to specify which variety of Special you want to Paste. Select the 'Transpose' button. 
+
+![transpose](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/dc10.png)
+
+Now your data should look like this:
+
+![transposed](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/dc11.png)
+
+
+We need to repeat the days column three times. Since it's small, we will copy and paste them 3 times. However, if you needed to repeat each value a different number of times (or a large number of times), you would use the VLOOKUP strategy, [explained here](https://stackoverflow.com/questions/11841213/copy-value-n-times-in-excel).
+
+Copy the list of days and paste it 2 times below the original list. 
+
+![repeated cells](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/dc12.png)
+
+Now we need to insert a column to the left of our weekdays for the weeks that each refers to. Right click on the column with the Days and select 'Insert'. Title this column 'Week' in the first data cell (A2), write this formula: `=$C$1`, and drag it into the next 7 cells (or until Sunday). The dollar signs tell Excel to hold the value constant and do not increment it. If we just did '=C1', then as we dragged it down, it would have filled from C2, C3, C4, etc. 
+
+![formula](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/dc13.png)
+
+Repeat this step with Weeks 2 & 3. 
+
+Now highlight column A where you just pasted the weeks into. Copy and Paste Special, and select 'Values'. If we don't do this, when we delete the data in columns D and E, the values in the 'Week' column won't have anything to reference, and we will get an error. 
+
+Copy and paste the numbers from each column into their respective locations, and delete the data in columns D and E. 
+
+Finally, be sure to save your Workbook as an Excel file, and save the sheet you just created as a csv file. 
+
+Now your data is ready to be used for visualization or have data added to it. In the next section, we will work with real data that we might use in a mapping program. 
+
+
+## Part II: Cleaning and Original Dataset.
 
 *Our questions:*
 Community Centers in New York City offer a variety of services from classes to family support to immigration help and much more. This is an exploratory mapping exercise where we want to know how these services are situated in the city.
@@ -74,142 +148,57 @@ Community Centers in New York City offer a variety of services from classes to f
 2. Missing Data
 	1. Each Row that is missing an address needs to be removed from the data set since we cannot map it. We want to cut and paste these rows into the 'Incomplete' Tab. We won't be able to map these data without finding more information, though we don't want to lose them completely.
 		1. Copy the header row from the Working Tab into the Incomplete Tab.
-		2. Return to the Working Tab and 'Sort' the sheet by addresses so all the missing ones are at the top. Sort by 'Location1'. The empty cells may appear at the bottom.
+		2. Return to the Working Tab and Sort the sheet by addresses so all the missing ones are together. Sort by 'Location1'. The empty cells may appear at the bottom rather than the top.
 		![sort sheet](https://github.com/CenterForSpatialResearch/data_mgmt_tutorials/blob/master/Images/dc6.png)
 		3. Cut and paste the rows without addresses into the Incomplete Tab.
 	2. Each Row that has a missing Age Group should stay in the dataset but **also** be added to the Incomplete tab. 
-		1. Sort the sheet by Age Group and copy and paste these rows into the Incomplete Tab
+		1. Sort the sheet by Age Group and copy and paste these rows into the Incomplete Tab.
 		2. Return to the Working tab and fill in the missing values with a null value (i.e., 'Unk' or 'NaN'). A simple way to do this is to type 'Unk' in the first cell and hover your mouse on the lower left corner to drag the same value the rest of the way down.
 	3. Find and Replace (Under Edit >> Find and Replace) to fill any remaining empty cells. Leave the find box empty and 'Find entire cells only' and Replace with: Unk
 	4. We can return to these datapoints later to recover the information.
 	
-	
-3. Fix errors created by converting to Excel
+3. Fix errors created by opening with Excel
 	1. There are two dates (May 20 and Nov 14) that have been automatically created by Excel
-	
 	2. Change the datatype in this column to 'Text'
 		1. Format > Cells > Data Type > Text
-		
-	3. Go back to the original data to find the correct values
+	3. Go back to the original data to find the correct values.
 		1. (May 20 is Age 5-20; Nov 14 is Age 11-14)
-		
 	4. Enter the correct ranges.
 
-
-4. Separate Addresses *Location contains both address information and latitude/longitude - it would be easier for us to have latitude/longitude available*
+4. Separate Addresses from the latitude/longitude. 
+*Location contains both address information and latitude/longitude. Some sites have lat/long information separated out, but some don't. For those that don't have the lat/long easily available, we want to extract it from the address field.*
 	1. First take a look at the cells with the location information in them. There are multiple lines per cell. We need the information in one line. We are going to use an Excel formula to collapse those lines, and will be a little clever about it because there is no direct way to do this. 
-	
 	2. Insert FOUR columns to the right of 'Location'.
-	3. Type this formula into the first cell of the first column (probably Column I: =SUBSTITUTE(H2,CHAR(13),"\")  
-		- *This means take cell H2, find Character #13 (the carriage return) and substitute the backslash. This was a bit of trial and error as it could have also been Character #10 (new line).*
-		1. If your Location column is in a different place, change H2 to the relevant location.
+	3. Type this formula into the first cell of the first new column (probably Column J: =SUBSTITUTE(I2,CHAR(13),"\")  *This means take cell I2, find Character #13 (the carriage return) and substitute the backslash. This was a bit of trial and error as it could have also been Character #10 (new line).* (obviously, if your Location1 column is in a different place for any reason, change I to the relevant column).
 		2. Drag this formula to the bottom of the data to fill in all of the cells.
-		
-	3. Copy this entire column, and Paste Special > Values into the same location. 
-		- You have to do this step for Excel to recognize the data in these cells rather than just the formulas.
-	
-	4. Select the entire 'Location' column again if it isn't already selected (the new location column you just made).
-	
+		3. Call this new column Location2
+	3. Right now, all of these cells are filled with formulas, not actual values. You can change that by a special kind of Copy/Paste. Copy this column, and select Paste Special > Values into the same location. This turns those formulas, which are all referential into actual values that can be read in place. 
+	4. Now we want to break apart those lines so each part of the address is in its own column.
 	5. Go to Data > Text to column
-	![image](https://github.com/michellejm/ConflictUrbanism_LanguageJustice/blob/master/Images/TExt2Columns.tiff)
 		1. Select 'Delimited' 
 		2. Select \
 		3. Finish
-		
-		
 5. Separate Latitude and Longitude
-
 	1. Select the column with latitude and longitude in it
-	
 	2. Insert a column to the right
-	
 	3. Select text-to-columns
-	
 	4. Select 'Delimited', 'comma-separated', Finish
-	
 	5. Remove the parentheses
-	
 		1. Select the Latitude column
-		
 			1. Find and Replace the character, ( , with nothing
-			
 		2. Select the Longitude column
-		
 			1. Find and replace the character, ) , with nothing
-	
 	6. Rename the columns appropriately
-	
-		1. I chose Location2, Street, City_State_Zip, Latitude, Longitude
-		
+		1. Location2, Street, City_State_Zip, Latitude, Longitude
 5. Select all of the data in this sheet and copy it onto the Final Tab.
+6. Save
+	1. From the Final Tab, select Save As > csv, and rename it something easier to type. 
+	2. Save the whole workbook as an Excel Spreadsheet. 
 
-6. Save it
-
-	1. From the Final Tab, select Save As > csv, and rename it something easier to type. (I chose ' *This will only save this sheet. That is OK - that is all that you want.* )
-	
-	2. Save the whole workbook 
-	
-**Congratulations! The data is clean enough to work with!**
-
-
-## Visualize it
-
-Now we want to get an idea of what this looks like against a map of New York City. I best understand New York using the neighborhoods as a guide rather than the census tracts or just the boroughs. So, I'm going to use the neighborhood tabulation area map as the basemap and visualize this layer on top of it. This tutorial will use QGIS, you can use Carto if you would prefer.
-
-1. Open QGIS
-
-2. Import a Vector layer 
-![vector](https://github.com/michellejm/ConflictUrbanism_LanguageJustice/blob/master/Images/vectorlayer.png)
-	1. Select Import Vector Layer
-	
-	2. Add the nynta.shp file from the [Data Folder](https://github.com/michellejm/ConflictUrbanism_LanguageJustice/tree/master/Data) on Github.
-	
-	3. Change the Coordinate Reference System to "NAD83 New York State Plane Long Island" The EPSG Code is 2263. If you don't remember how to do this, revisit [Tutorial 3](https://github.com/michellejm/ConflictUrbanism_LanguageJustice/blob/master/Tutorials/Tutorial_3_QGIS_part1.md)
-	
-*We are using this CRS because it is the one most often used by city agencies when preparing and analyzing their datasets. For such a small area, projection is not going to significantly affect the results. In your final maps, you may wish to use a different projection for aesthetic reasons. However, for analysis, we will use the most accurate and most commonly used projection for New York City.*
-	
-3. Add the data we just cleaned
-
-	1. Select Layer >> Add layer >> Add Delimited Text Layer
-	![delimited](https://github.com/michellejm/ConflictUrbanism_LanguageJustice/blob/master/Images/Delimited.png)
-	
-	2. Add the file we just cleaned
-	
-	3. Select csv (the button will turn blue)
-	
-	4. If x-coord and y-coord did NOT autofill, select the appropriate columns
-		1. X: longitude
-		2. Y: latitude
-		
-	5. Select OK
-	
-	6. Select the Coordinate Reference System 
-
-4. If the points do NOT appear:
-
-	1. Click on the Zoom Full Magnifying Glass
-	
-	2. Make sure that the points and the base are not the same color
-	
-	3. Double click on each layer and make sure you are using the same CRS
-
-5. What do you notice about this map?
-
-	1. Are there clusters of services?
-	
-	2. Do services exist along any particular shape?
-	
-	3. Are there any service deserts?
-	
-	4. Does looking at this map present further questions about distribution of immigration services in NYC?
-
-# Next steps
-
-I would like to know which language speakers have access to the most access to immigration services. Are any groups being underserved? Simply layering speaker maps would not be enough. What would we have to do to answer this question?
 
 __________________________________________________________________________________________
 
-This tutorial was prepared by Michelle McSweeney for the Conflict Urbanism: Language Justice Course offered by the [Center for Spatial Research](http://c4sr.columbia.edu) at Columbia University in Spring 2017. 
+Tutorial written by [Michelle McSweeney](www.michelleamcsweeney.com) for the the [Center for Spatial Research](http://c4sr.columbia.edu) at Columbia University.
 
 
 

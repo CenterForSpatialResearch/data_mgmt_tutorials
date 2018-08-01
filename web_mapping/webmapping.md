@@ -8,6 +8,10 @@ With this exercise you will learn how to create a basic web-based maps using the
 4. Experiment with layer styles and map composition
 5. Identify the strengths and weaknesses of webmapping to make an informed decision about how to publish your project
 
+#### Origins of Webmapping
+
+Static maps made with QGIS and other GIS programs are 
+
 #### The Premise
 
 With this exercise our goal is to create a simple interactive online map that shows the New York Botanical Garden just after it was initially constructed and annotates several important buildings and roads at the NYBG. We will use the 1902 Bronx map (that we georeferenced in the previous exercise) as well as some of the features we digitized adding additional annotations.
